@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rfc3986-uri/rfc3986-uri.iml" filepath="$PROJECT_DIR$/.idea/modules/rfc3986-uri/rfc3986-uri.iml" group="rfc3986-uri" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rfc3986-uri/rfc3986-uri_main.iml" filepath="$PROJECT_DIR$/.idea/modules/rfc3986-uri/rfc3986-uri_main.iml" group="rfc3986-uri" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rfc3986-uri/rfc3986-uri_test.iml" filepath="$PROJECT_DIR$/.idea/modules/rfc3986-uri/rfc3986-uri_test.iml" group="rfc3986-uri" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rfc6570-uri-templates/rfc6570-uri-templates.iml" filepath="$PROJECT_DIR$/.idea/modules/rfc6570-uri-templates/rfc6570-uri-templates.iml" group="rfc6570-uri-templates" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rfc6570-uri-templates/rfc6570-uri-templates_main.iml" filepath="$PROJECT_DIR$/.idea/modules/rfc6570-uri-templates/rfc6570-uri-templates_main.iml" group="rfc6570-uri-templates" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rfc6570-uri-templates/rfc6570-uri-templates_test.iml" filepath="$PROJECT_DIR$/.idea/modules/rfc6570-uri-templates/rfc6570-uri-templates_test.iml" group="rfc6570-uri-templates" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/uri-toolkit.iml" filepath="$PROJECT_DIR$/.idea/modules/uri-toolkit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/uri-toolkit_main.iml" filepath="$PROJECT_DIR$/.idea/modules/uri-toolkit_main.iml" group="uri-toolkit" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/uri-toolkit_test.iml" filepath="$PROJECT_DIR$/.idea/modules/uri-toolkit_test.iml" group="uri-toolkit" />
+    </modules>
+  </component>
+</project>
