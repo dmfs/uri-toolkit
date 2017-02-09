@@ -18,8 +18,8 @@ package org.dmfs.rfc3986.fragments;
 
 import org.dmfs.rfc3986.Fragment;
 import org.dmfs.rfc3986.UriEncoded;
-import org.dmfs.rfc3986.encoding.WwwFormUrlEncoded;
-import org.dmfs.rfc3986.params.Parametrized;
+import org.dmfs.rfc3986.encoding.XWwwFormUrlEncoded;
+import org.dmfs.rfc3986.parameters.ParameterList;
 
 import java.io.UnsupportedEncodingException;
 
@@ -34,9 +34,9 @@ public final class SimpleFragment implements Fragment
     private final UriEncoded mDelegate;
 
 
-    public SimpleFragment(Parametrized<UriEncoded, UriEncoded> params)
+    public SimpleFragment(ParameterList parameters)
     {
-        this(new WwwFormUrlEncoded(params));
+        this(new XWwwFormUrlEncoded(parameters));
     }
 
 

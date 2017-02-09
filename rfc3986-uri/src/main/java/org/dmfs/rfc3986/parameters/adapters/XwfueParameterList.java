@@ -14,60 +14,62 @@
  * limitations under the License.
  */
 
-package org.dmfs.rfc3986.params;
+package org.dmfs.rfc3986.parameters.adapters;
 
 import org.dmfs.iterators.AbstractConvertedIterator;
 import org.dmfs.iterators.ConvertedIterator;
 import org.dmfs.iterators.EmptyIterator;
 import org.dmfs.rfc3986.UriEncoded;
-import org.dmfs.rfc3986.encoding.IdempotentEncoded;
 import org.dmfs.rfc3986.encoding.Precoded;
-import org.dmfs.rfc3986.params.utils.UriFormEncodedPair;
+import org.dmfs.rfc3986.parameters.Parameter;
+import org.dmfs.rfc3986.parameters.ParameterList;
+import org.dmfs.rfc3986.parameters.parameters.UrlEncodedParameter;
 import org.dmfs.rfc3986.utils.Optional;
+import org.dmfs.rfc3986.utils.Present;
 import org.dmfs.rfc3986.utils.Split;
 
 import java.util.Iterator;
 
 
 /**
- * A {@link Parametrized} that parses the adapted {@link UriEncoded} as a {@code x-www-form-urlencoded} structure.
+ * {@link ParameterList} adapter that interpret the adapted {@link UriEncoded} as an {@code x-www-form-urlencoded} structure.
  *
  * @author Marten Gajda
  */
-public final class FormUrlEncoded implements Parametrized<UriEncoded, UriEncoded>
+public final class XwfueParameterList implements ParameterList
 {
-    private final static AbstractConvertedIterator.Converter<Pair<UriEncoded, UriEncoded>, CharSequence> CONVERTER = new AbstractConvertedIterator.Converter<Pair<UriEncoded, UriEncoded>, CharSequence>()
+    private final static AbstractConvertedIterator.Converter<Parameter, CharSequence> CONVERTER = new AbstractConvertedIterator.Converter<Parameter, CharSequence>()
     {
         @Override
-        public Pair<UriEncoded, UriEncoded> convert(CharSequence element)
+        public Parameter convert(CharSequence element)
         {
-            return new UriFormEncodedPair(new Precoded(element));
+            return new UrlEncodedParameter(new Precoded(element));
         }
     };
 
-    private final CharSequence mDelegate;
+    private final Optional<UriEncoded> mDelegate;
 
 
-    public FormUrlEncoded(Optional<UriEncoded> optionalDelegate)
+    public XwfueParameterList(UriEncoded delegate)
     {
-        this(optionalDelegate.value(IdempotentEncoded.EMPTY));
+        this(new Present<>(delegate));
     }
 
 
-    public FormUrlEncoded(UriEncoded delegate)
+    public XwfueParameterList(Optional<UriEncoded> delegate)
     {
         mDelegate = delegate;
     }
 
 
     @Override
-    public Iterator<Pair<UriEncoded, UriEncoded>> iterator()
+    public Iterator<Parameter> iterator()
     {
-        if (mDelegate.length() == 0)
+        if (!mDelegate.isPresent() || mDelegate.value().length() == 0)
         {
             return EmptyIterator.instance();
         }
 
-        return new ConvertedIterator<>(new Split(mDelegate, '&'), CONVERTER);
+        return new ConvertedIterator<>(new Split(mDelegate.value(), '&'), CONVERTER);
     }
 }

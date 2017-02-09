@@ -17,26 +17,36 @@
 package org.dmfs.rfc3986.encoding;
 
 import org.dmfs.rfc3986.UriEncoded;
-import org.dmfs.rfc3986.params.Pair;
-import org.dmfs.rfc3986.params.Parametrized;
+import org.dmfs.rfc3986.parameters.Parameter;
+import org.dmfs.rfc3986.parameters.ParameterList;
 
 import java.io.UnsupportedEncodingException;
 
 
 /**
- * An adapter to get the {@code x-www-form-urlencoded} {@link CharSequence} of a {@link Parametrized}.
+ * An adapter to adapt a {@link ParameterList} to {@code x-www-form-urlencoded} a {@link UriEncoded}.
+ * <p>
+ * Note, this can't be decoded as a whole. Calling {@link #decoded()} or {@link #decoded(String)} with result in an Exception.
  *
  * @author Marten Gajda
  */
-public final class WwwFormUrlEncoded implements UriEncoded
+public final class XWwwFormUrlEncoded implements UriEncoded
 {
-    private final Parametrized<UriEncoded, UriEncoded> mParams;
+    private final ParameterList mParams;
+    private final String mCharSet;
     private String mText;
 
 
-    public WwwFormUrlEncoded(Parametrized<UriEncoded, UriEncoded> params)
+    public XWwwFormUrlEncoded(ParameterList params)
+    {
+        this(params, "UTF-8");
+    }
+
+
+    public XWwwFormUrlEncoded(ParameterList params, String charset)
     {
         mParams = params;
+        mCharSet = charset;
     }
 
 
@@ -94,7 +104,7 @@ public final class WwwFormUrlEncoded implements UriEncoded
         {
             StringBuilder sb = new StringBuilder(256);
             boolean first = true;
-            for (Pair<UriEncoded, UriEncoded> pair : mParams)
+            for (Parameter parameter : mParams)
             {
                 if (first)
                 {
@@ -104,13 +114,10 @@ public final class WwwFormUrlEncoded implements UriEncoded
                 {
                     sb.append('&');
                 }
-                sb.append(pair.key().normalized());
-                UriEncoded value = pair.value();
-                if (value != null)
-                {
-                    sb.append('=');
-                    sb.append(value.normalized());
-                }
+                // FIXME: Encoded is actually not correct, since it encodes spaces as "%20" rather than "+". Though, it can be assumed that no parser will choke on this.
+                sb.append(new Encoded(parameter.name(), mCharSet));
+                sb.append('=');
+                sb.append(new Encoded(parameter.textValue(), mCharSet));
             }
             mText = sb.toString();
         }

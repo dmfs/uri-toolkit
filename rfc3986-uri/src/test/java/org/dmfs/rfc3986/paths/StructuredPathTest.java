@@ -1,8 +1,8 @@
 package org.dmfs.rfc3986.paths;
 
+import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.Encoded;
 import org.dmfs.rfc3986.encoding.IdempotentEncoded;
-import org.dmfs.rfc3986.UriEncoded;
 import org.hamcrest.Matchers;
 import org.hamcrest.collection.IsEmptyIterable;
 import org.junit.Test;
@@ -44,9 +44,13 @@ public class StructuredPathTest
         assertThat(new StructuredPath(IdempotentEncoded.EMPTY), Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY));
         assertThat(new StructuredPath(IdempotentEncoded.CURRENT), Matchers.contains((UriEncoded) IdempotentEncoded.CURRENT));
         assertThat(new StructuredPath(IdempotentEncoded.PARENT), Matchers.contains((UriEncoded) IdempotentEncoded.PARENT));
-        assertThat(new StructuredPath(IdempotentEncoded.PARENT, IdempotentEncoded.PARENT), Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.PARENT));
-        assertThat(new StructuredPath(IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")), Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")));
-        assertThat(new StructuredPath(IdempotentEncoded.CURRENT, new Encoded("a"), new Encoded("b")), Matchers.contains((UriEncoded) IdempotentEncoded.CURRENT, new Encoded("a"), new Encoded("b")));
-        assertThat(new StructuredPath(IdempotentEncoded.PARENT, new Encoded("a"), new Encoded("b")), Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, new Encoded("a"), new Encoded("b")));
+        assertThat(new StructuredPath(IdempotentEncoded.PARENT, IdempotentEncoded.PARENT),
+                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.PARENT));
+        assertThat(new StructuredPath(IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")),
+                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")));
+        assertThat(new StructuredPath(IdempotentEncoded.CURRENT, new Encoded("a"), new Encoded("b")),
+                Matchers.contains((UriEncoded) IdempotentEncoded.CURRENT, new Encoded("a"), new Encoded("b")));
+        assertThat(new StructuredPath(IdempotentEncoded.PARENT, new Encoded("a"), new Encoded("b")),
+                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, new Encoded("a"), new Encoded("b")));
     }
 }

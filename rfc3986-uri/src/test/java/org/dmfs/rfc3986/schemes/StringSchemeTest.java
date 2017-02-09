@@ -56,6 +56,7 @@ public class StringSchemeTest
         assertEquals("http", new StringScheme("http").toString());
     }
 
+
     @Test(expected = IllegalArgumentException.class)
     public void testLengthIllegalChar() throws Exception
     {
@@ -73,7 +74,7 @@ public class StringSchemeTest
     @Test(expected = IllegalArgumentException.class)
     public void testSubSequenceIllegalChar() throws Exception
     {
-        new StringScheme("http_").subSequence(1,2);
+        new StringScheme("http_").subSequence(1, 2);
     }
 
 

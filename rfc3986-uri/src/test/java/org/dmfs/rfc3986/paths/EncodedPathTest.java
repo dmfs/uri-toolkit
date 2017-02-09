@@ -3,7 +3,6 @@ package org.dmfs.rfc3986.paths;
 import org.dmfs.rfc3986.encoding.Precoded;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -158,6 +157,7 @@ public class EncodedPathTest
 //        assertEquals("/", new StringPath("/../abc/../../123/..").normalized().toString());
 //    }
 //
+
 
     @Test
     public void length() throws Exception
