@@ -34,7 +34,7 @@ One of the most common use cases is to parse a URI from a String.
 
 To create a `Uri` instance from a `String` call
 ```java
-Uri uri = new LazyUri(new Precoded("https://example.com/path/?q=me%40example.com&key=some%20value&key=value2#fragment"));
+Uri uri = new LazyUri(new Precoded("https://example.com/path/?q=me%40example.com&key=some+value&key=value2#fragment"));
 ```
 Note that `LazyUri` expects a `UriEncoded` char sequence. Normally you just wrap a `String` in `Precoded` like in the example.
 
@@ -45,7 +45,7 @@ otherwise not everything may have been parsed and invalid trailing characters ma
 
 ### Reading `Uri` components
 
-You can read the individual components with the respective methods of the `Uri` interface. Note that most of the return `Optional`s because
+You can read the individual components with the respective methods of the `Uri` interface. Note that most of them return `Optional`s because
 they are actually optional in a URI-reference. Reading the host (of the URI above) can be done as follows:
 ```java
 Optional<Authority> optAuthority = uri.authority();
@@ -65,22 +65,58 @@ Path path = uri.path();
 As per RFC 3986 the query value is just an encoded character sequence. However, since the early days of the Internet it's
 common to structure the query as `x-www-form-urlencoded` key-value pairs. This requires some special treatment, because the encoding is slightly different in this case.
 
-The easiest way to read these parameters is by using one of the available adapters like so (again using the `uri` from above):
+The easiest way to read these parameters is by using one of the available adapters like so (again using the `Uri` from above):
 
 ```java
-// if the q parameter is mandatory, just declare a TextParam that represents the value.
+// ideally you declare parameter types beforehand to bind the parameter name to a type
+public final static ParameterType<CharSequence> PARAM_Q = new TextParameterType("q", TextValueType.INSTANCE);
+public final static ParameterType<CharSequence> PARAM_KEY = new TextParameterType("key", TextValueType.INSTANCE);
+
+// if the q parameter is mandatory, just declare a TextParameter that represents the value.
 // if the q paramter is not present in the query, an exception will be thrown when you *use* the object "q"
-CharSequence q = new TextParam("q", new FormUrlEncoded(uri.query()));
+CharSequence q = new TextParameter(PARAM_Q, new XwfueParameterList(uri.query()));
 
 // if the q parameter is optional, create an OptionalParameter that can be checked for its presence before using it
-Optional<CharSequence> q = new OptionalParameter(new TextParamType(new Encoded("q")), new FormUrlEncoded(uri.query()));
+Optional<CharSequence> q = new OptionalParameter(PARAM_Q, new XwfueParameterList(uri.query()));
 
 // to get repeated parameters, declare an Iterable that returns the values.
-Iterable<CharSequence> keys = new MultiParameter(new TextParamType(new Encoded("key")), new FormUrlEncoded(uri.query()));
+Iterable<CharSequence> keys = new MultiParameter(PARAM_KEY, new XwfueParameterList(uri.query()));
 ```
-Note that these adapters return decoded values, but by implementing your own `ParamType` you easily return the encoded form instead.
-
 Parsing an `x-www-from-urlencoded` fragment works exactly the same way, just pass the fragment to `FormUrlEncoded`.
+
+## Working with query or fragment parameters
+
+Often you want to remove, append or replace parameters of a query or fragment. This toolkit provides decorators and a fluent interface
+to perform these basic operations.
+Both approaches provide the same functionality (in fact, the fluent implementation uses the decorators internally), so it's more a matter of personal preference.
+
+### Fluent interface
+
+The `Fluent` adapter will add a fluent interface to any `ParameterList`, like so
+```
+ParameterList query = new Fluent(new XwfueParameterList(uri.query()))
+                         .alsoWith(PARAM_Q.parameter("rfc uri"))    // append the parameter "q=rfc+uri"
+                         .ratherWith(PARAM_Q.parameter("rfc 3986")) // remove any q parameters and append "q=rfc+3986"
+                         .without(PARAM_Q);                         // remove any q parameters
+```
+Each method takes multiple parameters/parameter types.
+
+Note that the `Fluent` class is immutable and each method returns a new instance, so the original `ParameterList` will not be modified.
+
+### Decorators
+
+The decoration approach comes with 3 decorators: `Appending`, `Replacing` and `Removing`.
+```
+ParameterList originalQuery = new XwfueParameterList(uri.query());
+
+ParameterList query = new Appending(originalQuery, PARAM_Q.parameter("rfc uri"));  // append the parameter "q=rfc+uri"
+
+ParameterList query = new Replacing(originalQuery, PARAM_Q.parameter("rfc 3986")); // remove any q parameters and append "q=rfc+3986"
+
+ParameterList query = new Removing(originalQuery, PARAM_Q);                        // remove any q parameters
+```
+All decorators take multiple parameters.
+
 
 ## Building URIs
 
@@ -94,7 +130,7 @@ Creating a simple HTTP URL works like this:
 Uri newUri = new StructuredUri(Schemes.HTTPS,
                  new StructuredAuthority(new Encoded("www.google.com")),
                  new StructuredPath(IdempotentEncoded.EMPTY, new Encoded("search"))
-                 new SimpleQuery(new Precoded("q=uri+rfc+3986")))
+                 new SimpleQuery(new BasicParameterList(PARAM_Q.parameter("uri rfc 3986"))))
 ```
 
 Note the `IdempotentEncoded.EMPTY` in the path. This represents the root directory of the path. So the path results in `/search`.
@@ -102,7 +138,7 @@ Note the `IdempotentEncoded.EMPTY` in the path. This represents the root directo
 To convert this `Uri` into a `CharSequence` you use the `Text` adapter like so:
 ```java
 CharSequence uriText = new Text(newUri);
-// to retrieve a String you call
+// or if you need a String:
 String uriString = new Text(newUri).toString();
 ```
 
@@ -112,8 +148,8 @@ To resolve a URI-reference against a base URI you use `Resolved` compositor like
 
 ```java
 Uri resolved = new Resolved(
-        new LazyUri(new Encoded("https://www.google.com/search?q=uri+rfc+3986")),
-        new LazyUri(new Encoded("/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png")));
+        new LazyUri(new Precoded("https://www.google.com/search?q=uri+rfc+3986")),
+        new LazyUri(new Precoded("/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png")));
 ```
 which results in the URI `https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png`.
 
@@ -122,7 +158,7 @@ which results in the URI `https://www.google.com/images/branding/googlelogo/2x/g
 URIs can be normalized with the `Normalized` decorator like so:
 
 ```java
-Uri normalized = new Normalized(new LazyUri(new Encoded("https://example.com/123/../%61%40%62@c")));
+Uri normalized = new Normalized(new LazyUri(new Precoded("https://example.com/123/../%61%40%62@c")));
 ```
 Which results in `https://example.com/a%40b@c`
 
@@ -143,6 +179,9 @@ This type (or a subtype of it) is used whenever an encoded character sequence is
 `UriEncoded` provides methods to decode the value into a plain `CharSequence` and to return a normalized version (which decodes encoded characters from the
 unreserved range and converts percent encoded char sequences to upper case).
 
+The two most important `UriEncoded` implementations of this library are `Encoded`, which automatically encodes all reserved characters and `Precoded` which
+adapts a `CharSequence` which is already encoded to `UriEncoded`.
+
 ## Single responsibility
 
 Most classes in this library are designed to have a single responsibility. That means most classed don't even implement `toString()` and leave the conversion
@@ -150,7 +189,7 @@ to a character sequence to an adapter class. For instance, to "convert" a `Path`
 Classes that implement `Path` are not required to return a `String` representation of the path.
 
 This keeps the classes small and focused and helps to reduce code duplication. Ideally all classes would have only a single responsibility,
-which mean no two classes need to have the same responsibility, otherwise one of them would be redundant.
+which means no two classes need to have the same responsibility, otherwise one of them would be redundant.
 
 It also makes it much easier to write unit tests, because you don't need to test side effects between these responsibilities.
 
@@ -166,7 +205,7 @@ To enforce the "no inheritance" principle all classes are `final`.
 
 This also makes it easier to test classes, because you don't need to test for "regression" bugs in the inherited behavior.
 
-## Designed for extensibility
+## Work by contract
 
 Every public method in this library implements an interface. So it's easy to write adapters and decorators to extend the functionality of a class without
 having to worry about breaking existing functionality.
@@ -182,6 +221,10 @@ object that holds a reference to the object that you want to modify (because you
 
 In addition immutability makes it easier to test classes, because there is no mutable state to be considered in the tests.
 
+## No `null`
+
+None of the methods of this toolkit will accept or return `null` values. If a value can be optional an `Optional` is returned.
+
 
 ## TODO
 
@@ -191,7 +234,7 @@ The library is still in an early stage. In addition to possible changes in desig
 * Validate IPv6 & Future-IP addresses
 * Support for [URI templates](https://tools.ietf.org/html/rfc6570)
 * Efficient support for [Data URIs](https://tools.ietf.org/html/rfc2397)
-* Fluent builders for `Uri`, `Path` and `Parametrized` objects
+* Fluent builder for `Uri` objects
 
 # License
 

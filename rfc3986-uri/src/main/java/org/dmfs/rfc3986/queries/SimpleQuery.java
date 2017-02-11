@@ -18,8 +18,8 @@ package org.dmfs.rfc3986.queries;
 
 import org.dmfs.rfc3986.Query;
 import org.dmfs.rfc3986.UriEncoded;
-import org.dmfs.rfc3986.encoding.WwwFormUrlEncoded;
-import org.dmfs.rfc3986.params.Parametrized;
+import org.dmfs.rfc3986.encoding.XWwwFormUrlEncoded;
+import org.dmfs.rfc3986.parameters.ParameterList;
 
 import java.io.UnsupportedEncodingException;
 
@@ -34,9 +34,9 @@ public final class SimpleQuery implements Query
     private final UriEncoded mDelegate;
 
 
-    public SimpleQuery(Parametrized<UriEncoded, UriEncoded> params)
+    public SimpleQuery(ParameterList params)
     {
-        this(new WwwFormUrlEncoded(params));
+        this(new XWwwFormUrlEncoded(params));
     }
 
 

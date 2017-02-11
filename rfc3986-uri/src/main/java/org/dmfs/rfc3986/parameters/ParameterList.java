@@ -14,36 +14,13 @@
  * limitations under the License.
  */
 
-package org.dmfs.rfc3986.params.types;
-
-import org.dmfs.rfc3986.UriEncoded;
-import org.dmfs.rfc3986.params.ParamType;
-
+package org.dmfs.rfc3986.parameters;
 
 /**
+ * Represents a set of {@link Parameter}s.
+ *
  * @author Marten Gajda
  */
-public final class IntegerParamType implements ParamType<Integer>
+public interface ParameterList extends Iterable<Parameter>
 {
-    private final UriEncoded mName;
-
-
-    public IntegerParamType(UriEncoded name)
-    {
-        mName = name;
-    }
-
-
-    @Override
-    public UriEncoded name()
-    {
-        return mName.normalized();
-    }
-
-
-    @Override
-    public Integer decodedValue(UriEncoded encoded)
-    {
-        return Integer.parseInt(encoded.decoded().toString());
-    }
 }

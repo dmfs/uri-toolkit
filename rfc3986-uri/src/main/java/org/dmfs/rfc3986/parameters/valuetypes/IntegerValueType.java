@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-package org.dmfs.rfc3986.params;
+package org.dmfs.rfc3986.parameters.valuetypes;
 
-import org.dmfs.rfc3986.UriEncoded;
+import org.dmfs.rfc3986.parameters.ValueType;
 
 
 /**
- * The type of a parameter.
+ * A {@link ValueType} for integer parameters.
  *
  * @author Marten Gajda
  */
-public interface ParamType<T>
+public final class IntegerValueType implements ValueType<Integer>
 {
-    /**
-     * Returns the name of the parameter.
-     *
-     * @return
-     */
-    UriEncoded name();
+    public final static IntegerValueType INSTANCE = new IntegerValueType();
 
-    /**
-     * Decodes the given {@link UriEncoded} value into the parameter value.
-     *
-     * @param encoded
-     *
-     * @return
-     */
-    T decodedValue(UriEncoded encoded);
+
+    @Override
+    public Integer parsedValue(CharSequence valueText)
+    {
+        return Integer.parseInt(valueText.toString());
+    }
+
+
+    @Override
+    public CharSequence serializedValue(Integer value)
+    {
+        return value.toString();
+    }
 }

@@ -16,8 +16,6 @@
 
 package org.dmfs.rfc3986.encoding;
 
-import org.dmfs.rfc3986.encoding.Normalized;
-import org.dmfs.rfc3986.encoding.Precoded;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -16,15 +16,25 @@
 
 package org.dmfs.rfc3986;
 
+import org.dmfs.rfc3986.parameters.adapters.XwfueParameterList;
+
+
 /**
- * A fragment is essentially a {@link UriEncoded} {@link CharSequence}.
+ * The fragment component of a URI. A fragment is a {@link UriEncoded} {@link CharSequence}.
  * <p>
- * However, often the fragment is structured for example with {@code x-www-form-urlencoded}. Use an appropriate adapter to read these structured values.
+ * Often the fragment is structured, for instance with {@code x-www-form-urlencoded}. Use an appropriate adapter like {@link XwfueParameterList} to read these
+ * structured values.
  *
  * @author Marten Gajda
  */
 public interface Fragment extends UriEncoded
 {
+
+    /**
+     * Returns the encoded String representation of the fragment.
+     *
+     * @return A {@link String} representing the encoded fragment.
+     */
     @Override
     String toString();
 }

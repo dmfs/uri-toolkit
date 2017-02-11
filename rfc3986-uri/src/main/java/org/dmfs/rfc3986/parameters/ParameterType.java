@@ -14,11 +14,38 @@
  * limitations under the License.
  */
 
-package org.dmfs.rfc3986.params;
+package org.dmfs.rfc3986.parameters;
 
 /**
+ * The type of a parameter.
+ *
  * @author Marten Gajda
  */
-public interface Parametrized<K, V> extends Iterable<Pair<K, V>>
+public interface ParameterType<T>
 {
+    /**
+     * Returns the name of the parameter.
+     *
+     * @return
+     */
+    CharSequence name();
+
+    /**
+     * Returns the parsed value of the given {@link Parameter}.
+     *
+     * @param parameter
+     *         The {@link Parameter} to parse.
+     *
+     * @return
+     */
+    T value(Parameter parameter);
+
+    /**
+     * Returns a parameter of this type with the given value.
+     *
+     * @param value
+     *
+     * @return
+     */
+    Parameter parameter(T value);
 }

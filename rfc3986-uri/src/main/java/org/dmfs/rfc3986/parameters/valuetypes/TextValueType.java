@@ -14,27 +14,31 @@
  * limitations under the License.
  */
 
-package org.dmfs.rfc3986;
+package org.dmfs.rfc3986.parameters.valuetypes;
 
-import org.dmfs.rfc3986.parameters.adapters.XwfueParameterList;
+import org.dmfs.rfc3986.parameters.ValueType;
 
 
 /**
- * /** The query component of a URI. A fragment is a {@link UriEncoded} {@link CharSequence}.
- * <p>
- * Often the query is structured, for instance with {@code x-www-form-urlencoded}. Use an appropriate adapter like {@link XwfueParameterList} to read these
- * structured values.
+ * A {@link ValueType} for plain text parameters.
  *
  * @author Marten Gajda
  */
-public interface Query extends UriEncoded
+public final class TextValueType implements ValueType<CharSequence>
 {
+    public final static TextValueType INSTANCE = new TextValueType();
 
-    /**
-     * Returns the encoded String representation of the query.
-     *
-     * @return A {@link String} representing the encoded query.
-     */
+
     @Override
-    String toString();
+    public CharSequence parsedValue(CharSequence valueText)
+    {
+        return valueText;
+    }
+
+
+    @Override
+    public CharSequence serializedValue(CharSequence value)
+    {
+        return value;
+    }
 }

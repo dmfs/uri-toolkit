@@ -14,38 +14,28 @@
  * limitations under the License.
  */
 
-package org.dmfs.rfc3986.params;
+package org.dmfs.rfc3986.parameters.adapters;
 
-import org.dmfs.rfc3986.UriEncoded;
-import org.dmfs.rfc3986.encoding.Encoded;
-import org.dmfs.rfc3986.params.types.TextParamType;
+import org.dmfs.rfc3986.parameters.ParameterList;
+import org.dmfs.rfc3986.parameters.ParameterType;
+
+import java.util.NoSuchElementException;
 
 
 /**
- * A mandatory text parameter. If the given {@link Parametrized} doesn't contain any parameter of this type all methods will throw.
+ * A mandatory text parameter. If the given {@link ParameterList} doesn't contain any parameter of this type all methods will throw {@link
+ * NoSuchElementException}.
  *
  * @author Marten Gajda
  */
-public final class TextParam implements CharSequence
+public final class TextParameter implements CharSequence
 {
     private final OptionalParameter<CharSequence> mParameter;
 
 
-    public TextParam(String name, Parametrized<UriEncoded, UriEncoded> parametrized)
+    public TextParameter(ParameterType<CharSequence> type, ParameterList parameterList)
     {
-        this(new TextParamType(new Encoded(name)), parametrized);
-    }
-
-
-    public TextParam(UriEncoded name, Parametrized<UriEncoded, UriEncoded> parametrized)
-    {
-        this(new TextParamType(name), parametrized);
-    }
-
-
-    public TextParam(ParamType<CharSequence> type, Parametrized<UriEncoded, UriEncoded> parametrized)
-    {
-        mParameter = new OptionalParameter<>(type, parametrized);
+        mParameter = new OptionalParameter<>(type, parameterList);
     }
 
 

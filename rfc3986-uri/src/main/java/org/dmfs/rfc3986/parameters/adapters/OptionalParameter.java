@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package org.dmfs.rfc3986.params;
+package org.dmfs.rfc3986.parameters.adapters;
 
 import org.dmfs.iterators.AbstractConvertedIterator;
 import org.dmfs.iterators.AbstractFilteredIterator;
 import org.dmfs.iterators.ConvertedIterator;
 import org.dmfs.iterators.FilteredIterator;
-import org.dmfs.rfc3986.UriEncoded;
+import org.dmfs.rfc3986.parameters.Parameter;
+import org.dmfs.rfc3986.parameters.ParameterList;
+import org.dmfs.rfc3986.parameters.ParameterType;
 import org.dmfs.rfc3986.utils.Optional;
 
 import java.util.Iterator;
@@ -28,7 +30,7 @@ import java.util.NoSuchElementException;
 
 
 /**
- * The value of a parameter that can be present once or not at all.
+ * The value of a {@link Parameter} that can be present once or not at all.
  *
  * @author Marten Gajda
  */
@@ -39,7 +41,7 @@ public final class OptionalParameter<V> implements Optional<V>
     private Boolean mIsPresent;
 
 
-    public OptionalParameter(final ParamType<V> paramType, final Iterable<Pair<UriEncoded, UriEncoded>> delegate)
+    public OptionalParameter(final ParameterType<V> parameterType, final ParameterList delegate)
     {
         mDelegate = new Iterable<V>()
         {
@@ -49,20 +51,22 @@ public final class OptionalParameter<V> implements Optional<V>
                 return new ConvertedIterator<>(
                         new FilteredIterator<>(
                                 delegate.iterator(),
-                                new AbstractFilteredIterator.IteratorFilter<Pair<UriEncoded, UriEncoded>>()
+                                new AbstractFilteredIterator.IteratorFilter<Parameter>()
                                 {
                                     @Override
-                                    public boolean iterate(Pair<UriEncoded, UriEncoded> element)
+                                    public boolean iterate(Parameter element)
                                     {
-                                        return element.key().normalized().equals(paramType.name());
+                                        // TODO: get rid of the toString conversion and use something like an `Equalable`
+                                        // TODO: maybe move this check to ParameterType
+                                        return element.name().toString().equals(parameterType.name().toString());
                                     }
                                 }),
-                        new AbstractConvertedIterator.Converter<V, Pair<UriEncoded, UriEncoded>>()
+                        new AbstractConvertedIterator.Converter<V, Parameter>()
                         {
                             @Override
-                            public V convert(Pair<UriEncoded, UriEncoded> element)
+                            public V convert(Parameter element)
                             {
-                                return paramType.decodedValue(element.value());
+                                return parameterType.value(element);
                             }
                         });
             }

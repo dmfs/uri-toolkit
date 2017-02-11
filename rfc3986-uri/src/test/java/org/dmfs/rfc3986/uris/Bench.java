@@ -30,12 +30,6 @@ import java.util.List;
  */
 public final class Bench
 {
-    private interface Benchmark
-    {
-        void bench(List<Object> results, int count, String uriStr);
-    }
-
-
     @Test
     public void bench() throws InterruptedException
     {
@@ -74,6 +68,12 @@ public final class Bench
                         -free, -start, free / count));
         System.gc();
         Thread.sleep(1000);
+    }
+
+
+    private interface Benchmark
+    {
+        void bench(List<Object> results, int count, String uriStr);
     }
 
 

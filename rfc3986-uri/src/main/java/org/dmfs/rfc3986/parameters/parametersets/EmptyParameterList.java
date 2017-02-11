@@ -14,31 +14,28 @@
  * limitations under the License.
  */
 
-package org.dmfs.rfc3986.params;
+package org.dmfs.rfc3986.parameters.parametersets;
+
+import org.dmfs.iterators.EmptyIterator;
+import org.dmfs.rfc3986.parameters.Parameter;
+import org.dmfs.rfc3986.parameters.ParameterList;
+
+import java.util.Iterator;
+
 
 /**
- * A key value pair.
- *
- * @param <K>
- *         the type of the key.
- * @param <V>
- *         the type of the value.
+ * {@link ParameterList} that doesn't contain any parameters.
  *
  * @author Marten Gajda
  */
-public interface Pair<K, V>
+public final class EmptyParameterList implements ParameterList
 {
-    /**
-     * Returns the key of the pair.
-     *
-     * @return
-     */
-    K key();
+    public static final ParameterList INSTANCE = new EmptyParameterList();
 
-    /**
-     * Returns the value of the pair.
-     *
-     * @return
-     */
-    V value();
+
+    @Override
+    public Iterator<Parameter> iterator()
+    {
+        return EmptyIterator.instance();
+    }
 }

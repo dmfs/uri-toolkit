@@ -14,27 +14,31 @@
  * limitations under the License.
  */
 
-package org.dmfs.rfc3986;
+package org.dmfs.rfc3986.parameters.valuetypes;
 
-import org.dmfs.rfc3986.parameters.adapters.XwfueParameterList;
+import org.dmfs.rfc3986.parameters.ValueType;
 
 
 /**
- * /** The query component of a URI. A fragment is a {@link UriEncoded} {@link CharSequence}.
- * <p>
- * Often the query is structured, for instance with {@code x-www-form-urlencoded}. Use an appropriate adapter like {@link XwfueParameterList} to read these
- * structured values.
+ * A {@link ValueType} for {@link Boolean} parameters.
  *
  * @author Marten Gajda
  */
-public interface Query extends UriEncoded
+public final class BooleanValueType implements ValueType<Boolean>
 {
+    public final static BooleanValueType INSTANCE = new BooleanValueType();
 
-    /**
-     * Returns the encoded String representation of the query.
-     *
-     * @return A {@link String} representing the encoded query.
-     */
+
     @Override
-    String toString();
+    public Boolean parsedValue(CharSequence valueText)
+    {
+        return Boolean.parseBoolean(valueText.toString()) || "1".equals(valueText.toString());
+    }
+
+
+    @Override
+    public CharSequence serializedValue(Boolean value)
+    {
+        return value.toString();
+    }
 }

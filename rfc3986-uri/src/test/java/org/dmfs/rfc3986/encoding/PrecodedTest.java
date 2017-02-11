@@ -51,8 +51,8 @@ public class PrecodedTest
     @Test
     public void subSequence() throws Exception
     {
-        assertEquals(new Precoded("123"), new Precoded("abc123xyz").subSequence(3,6));
-        assertEquals("123", new Precoded("abc123xyz").subSequence(3,6).toString());
+        assertEquals(new Precoded("123"), new Precoded("abc123xyz").subSequence(3, 6));
+        assertEquals("123", new Precoded("abc123xyz").subSequence(3, 6).toString());
     }
 
 
