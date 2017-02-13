@@ -114,10 +114,9 @@ public final class XWwwFormUrlEncoded implements UriEncoded
                 {
                     sb.append('&');
                 }
-                // FIXME: Encoded is actually not correct, since it encodes spaces as "%20" rather than "+". Though, it can be assumed that no parser will choke on this.
-                sb.append(new Encoded(parameter.name(), mCharSet));
+                sb.append(new FormEncoded(parameter.name(), mCharSet));
                 sb.append('=');
-                sb.append(new Encoded(parameter.textValue(), mCharSet));
+                sb.append(new FormEncoded(parameter.textValue(), mCharSet));
             }
             mText = sb.toString();
         }
