@@ -16,11 +16,11 @@
 
 package org.dmfs.rfc3986.authorities;
 
+import org.dmfs.optional.Absent;
+import org.dmfs.optional.Optional;
+import org.dmfs.optional.Present;
 import org.dmfs.rfc3986.Authority;
 import org.dmfs.rfc3986.UriEncoded;
-import org.dmfs.rfc3986.utils.Absent;
-import org.dmfs.rfc3986.utils.Optional;
-import org.dmfs.rfc3986.utils.Present;
 
 
 /**

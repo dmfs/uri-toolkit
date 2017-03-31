@@ -16,6 +16,7 @@
 
 package org.dmfs.rfc3986.uris;
 
+import org.dmfs.optional.Optional;
 import org.dmfs.rfc3986.Fragment;
 import org.dmfs.rfc3986.Scheme;
 import org.dmfs.rfc3986.Uri;
@@ -25,7 +26,6 @@ import org.dmfs.rfc3986.fragments.OptionalLazyFragment;
 import org.dmfs.rfc3986.paths.LazyPath;
 import org.dmfs.rfc3986.queries.OptionalLazyQuery;
 import org.dmfs.rfc3986.schemes.OptionalLazyScheme;
-import org.dmfs.rfc3986.utils.Optional;
 
 
 /**

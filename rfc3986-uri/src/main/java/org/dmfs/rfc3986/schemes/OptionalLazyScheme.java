@@ -16,15 +16,15 @@
 
 package org.dmfs.rfc3986.schemes;
 
+import org.dmfs.optional.Optional;
+import org.dmfs.optional.Present;
 import org.dmfs.rfc3986.Scheme;
 import org.dmfs.rfc3986.UriEncoded;
-import org.dmfs.rfc3986.utils.Optional;
 import org.dmfs.rfc3986.utils.Parsed;
-import org.dmfs.rfc3986.utils.Present;
 
 import java.util.NoSuchElementException;
 
-import static org.dmfs.rfc3986.utils.Absent.absent;
+import static org.dmfs.optional.Absent.absent;
 import static org.dmfs.rfc3986.validation.CharSets.ALPHA;
 import static org.dmfs.rfc3986.validation.CharSets.SCHEME_CHAR;
 
