@@ -16,14 +16,14 @@
 
 package org.dmfs.rfc3986.fragments;
 
+import org.dmfs.optional.Optional;
+import org.dmfs.optional.Present;
 import org.dmfs.rfc3986.Fragment;
 import org.dmfs.rfc3986.UriEncoded;
-import org.dmfs.rfc3986.utils.Optional;
-import org.dmfs.rfc3986.utils.Present;
 
 import java.util.NoSuchElementException;
 
-import static org.dmfs.rfc3986.utils.Absent.absent;
+import static org.dmfs.optional.Absent.absent;
 import static org.dmfs.rfc3986.validation.CharSets.FRAGMENT_CHAR;
 
 

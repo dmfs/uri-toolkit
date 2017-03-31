@@ -19,13 +19,13 @@ package org.dmfs.rfc3986.parameters.adapters;
 import org.dmfs.iterators.AbstractConvertedIterator;
 import org.dmfs.iterators.ConvertedIterator;
 import org.dmfs.iterators.EmptyIterator;
+import org.dmfs.optional.Optional;
+import org.dmfs.optional.Present;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.Precoded;
 import org.dmfs.rfc3986.parameters.Parameter;
 import org.dmfs.rfc3986.parameters.ParameterList;
 import org.dmfs.rfc3986.parameters.parameters.UrlEncodedParameter;
-import org.dmfs.rfc3986.utils.Optional;
-import org.dmfs.rfc3986.utils.Present;
 import org.dmfs.rfc3986.utils.Split;
 
 import java.util.Iterator;

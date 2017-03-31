@@ -20,10 +20,10 @@ import org.dmfs.iterators.AbstractConvertedIterator;
 import org.dmfs.iterators.AbstractFilteredIterator;
 import org.dmfs.iterators.ConvertedIterator;
 import org.dmfs.iterators.FilteredIterator;
+import org.dmfs.optional.Optional;
 import org.dmfs.rfc3986.parameters.Parameter;
 import org.dmfs.rfc3986.parameters.ParameterList;
 import org.dmfs.rfc3986.parameters.ParameterType;
-import org.dmfs.rfc3986.utils.Optional;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

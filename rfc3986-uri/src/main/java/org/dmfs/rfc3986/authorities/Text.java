@@ -16,10 +16,10 @@
 
 package org.dmfs.rfc3986.authorities;
 
+import org.dmfs.optional.Optional;
 import org.dmfs.rfc3986.Authority;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.Precoded;
-import org.dmfs.rfc3986.utils.Optional;
 
 import java.io.UnsupportedEncodingException;
 

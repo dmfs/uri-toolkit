@@ -16,6 +16,8 @@
 
 package org.dmfs.rfc3986.uris;
 
+import org.dmfs.optional.Optional;
+import org.dmfs.optional.Present;
 import org.dmfs.rfc3986.Authority;
 import org.dmfs.rfc3986.Fragment;
 import org.dmfs.rfc3986.Path;
@@ -24,8 +26,6 @@ import org.dmfs.rfc3986.Scheme;
 import org.dmfs.rfc3986.Uri;
 import org.dmfs.rfc3986.fragments.SimpleFragment;
 import org.dmfs.rfc3986.queries.SimpleQuery;
-import org.dmfs.rfc3986.utils.Optional;
-import org.dmfs.rfc3986.utils.Present;
 
 
 /**

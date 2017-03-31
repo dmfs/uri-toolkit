@@ -16,7 +16,7 @@
 
 package org.dmfs.rfc3986;
 
-import org.dmfs.rfc3986.utils.Optional;
+import org.dmfs.optional.Optional;
 
 
 /**

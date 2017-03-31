@@ -16,6 +16,7 @@
 
 package org.dmfs.rfc3986.uris;
 
+import org.dmfs.optional.Optional;
 import org.dmfs.rfc3986.Authority;
 import org.dmfs.rfc3986.Fragment;
 import org.dmfs.rfc3986.Path;
@@ -23,9 +24,8 @@ import org.dmfs.rfc3986.Query;
 import org.dmfs.rfc3986.Scheme;
 import org.dmfs.rfc3986.Uri;
 import org.dmfs.rfc3986.paths.EmptyPath;
-import org.dmfs.rfc3986.utils.Optional;
 
-import static org.dmfs.rfc3986.utils.Absent.absent;
+import static org.dmfs.optional.Absent.absent;
 
 
 /**
