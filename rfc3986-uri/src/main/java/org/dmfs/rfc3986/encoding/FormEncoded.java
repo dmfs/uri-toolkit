@@ -137,7 +137,7 @@ public final class FormEncoded implements UriEncoded
 
     private CharSequence encoded(CharSequence charSequence, String charSet) throws UnsupportedEncodingException
     {
-        final int len = charSequence.length();
+        final int len = charSequence != null ? charSequence.length() : 0;
         if (len == 0)
         {
             return IdempotentEncoded.EMPTY;
