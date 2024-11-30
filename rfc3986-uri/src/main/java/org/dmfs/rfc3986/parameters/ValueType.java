@@ -18,17 +18,13 @@ package org.dmfs.rfc3986.parameters;
 
 /**
  * The type of a value a {@link Parameter} can have.
- *
- * @author Marten Gajda
  */
 public interface ValueType<T>
 {
     /**
      * Returns the parsed value of the given text value.
      *
-     * @param valueText
-     *         The text representation of the value.
-     *
+     * @param valueText The text representation of the value.
      * @return The parsed value.
      */
     T parsedValue(CharSequence valueText);
@@ -36,9 +32,7 @@ public interface ValueType<T>
     /**
      * Serializes the given value to its plain text representation.
      *
-     * @param value
-     *         The value to serialize.
-     *
+     * @param value The value to serialize.
      * @return The serialized value.
      */
     CharSequence serializedValue(T value);

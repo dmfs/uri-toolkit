@@ -18,8 +18,6 @@ package org.dmfs.rfc3986.utils;
 
 /**
  * An component that has been parsed from a URI.
- *
- * @author Marten Gajda
  */
 public interface Parsed
 {

@@ -26,8 +26,6 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * A {@link Fragment} derived from a {@link UriEncoded} {@link CharSequence}.
- *
- * @author Marten Gajda
  */
 public final class SimpleFragment implements Fragment
 {

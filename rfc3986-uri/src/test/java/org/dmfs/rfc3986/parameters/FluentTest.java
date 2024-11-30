@@ -20,16 +20,15 @@ import org.dmfs.rfc3986.parameters.parametersets.BasicParameterList;
 import org.dmfs.rfc3986.parameters.parametersets.Fluent;
 import org.dmfs.rfc3986.parameters.parametertypes.BasicParameterType;
 import org.dmfs.rfc3986.parameters.valuetypes.TextValueType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 /**
- * @author Marten Gajda
  */
 public class FluentTest
 {

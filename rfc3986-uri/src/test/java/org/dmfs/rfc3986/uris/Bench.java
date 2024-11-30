@@ -18,7 +18,7 @@ package org.dmfs.rfc3986.uris;
 
 import org.dmfs.rfc3986.Uri;
 import org.dmfs.rfc3986.encoding.Precoded;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -26,7 +26,6 @@ import java.util.List;
 
 
 /**
- * @author Marten
  */
 public final class Bench
 {

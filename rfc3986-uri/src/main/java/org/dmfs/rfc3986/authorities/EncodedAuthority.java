@@ -16,22 +16,18 @@
 
 package org.dmfs.rfc3986.authorities;
 
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Present;
 import org.dmfs.rfc3986.Authority;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.utils.Parsed;
 
-import static org.dmfs.optional.Absent.absent;
-import static org.dmfs.rfc3986.validation.CharSets.DIGIT;
-import static org.dmfs.rfc3986.validation.CharSets.HOST_TERMINATOR_CHARS;
-import static org.dmfs.rfc3986.validation.CharSets.REG_NAME_CHAR;
+import static org.dmfs.jems2.optional.Absent.absent;
+import static org.dmfs.rfc3986.validation.CharSets.*;
 
 
 /**
  * An {@link Authority} that's parsed and validated lazily.
- *
- * @author Marten Gajda
  */
 public final class EncodedAuthority implements Authority, Parsed
 {
@@ -93,7 +89,7 @@ public final class EncodedAuthority implements Authority, Parsed
         {
             // the authority is followed by an unexpected character
             throw new IllegalArgumentException(
-                    String.format("Authority %s contains illegal char %c at position %d", authority.toString(), authority.charAt(i), i));
+                String.format("Authority %s contains illegal char %c at position %d", authority.toString(), authority.charAt(i), i));
         }
 
         return authority.subSequence(start, i);
@@ -156,7 +152,7 @@ public final class EncodedAuthority implements Authority, Parsed
         {
             // port not followed by a valid character
             throw new IllegalArgumentException(
-                    String.format("Authority %s contains illegal char %c at position %d", mAuthority.toString(), next, i));
+                String.format("Authority %s contains illegal char %c at position %d", mAuthority.toString(), next, i));
         }
         return new Present<>(port);
 

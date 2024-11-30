@@ -16,17 +16,16 @@
 
 package org.dmfs.rfc3986.paths;
 
-import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.Encoded;
 import org.dmfs.rfc3986.encoding.IdempotentEncoded;
 import org.dmfs.rfc3986.encoding.Precoded;
-import org.hamcrest.Matchers;
-import org.hamcrest.collection.IsEmptyIterable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.saynotobugs.confidence.Assertion.assertThat;
+import static org.saynotobugs.confidence.core.quality.Iterable.emptyIterable;
+import static org.saynotobugs.confidence.core.quality.Iterable.iterates;
 
 
 /**
@@ -54,48 +53,48 @@ public class NormalizedTest
     @Test
     public void testIterator() throws Exception
     {
-        assertThat(new Normalized(EmptyPath.INSTANCE), new IsEmptyIterable());
-        assertThat(new Normalized(new EncodedPath(new Precoded("."))), Matchers.contains((UriEncoded) IdempotentEncoded.CURRENT, IdempotentEncoded.EMPTY));
-        assertThat(new Normalized(new EncodedPath(new Precoded(".."))), Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
-        assertThat(new Normalized(new EncodedPath(new Precoded("/"))), Matchers.contains((UriEncoded) new Encoded(""), new Encoded("")));
-        assertThat(new Normalized(new EncodedPath(new Precoded("/a"))), Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("a")));
+        assertThat(new Normalized(EmptyPath.INSTANCE), emptyIterable());
+        assertThat(new Normalized(new EncodedPath(new Precoded("."))), iterates(IdempotentEncoded.CURRENT, IdempotentEncoded.EMPTY));
+        assertThat(new Normalized(new EncodedPath(new Precoded(".."))), iterates(IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
+        assertThat(new Normalized(new EncodedPath(new Precoded("/"))), iterates(new Encoded(""), new Encoded("")));
+        assertThat(new Normalized(new EncodedPath(new Precoded("/a"))), iterates(IdempotentEncoded.EMPTY, new Encoded("a")));
         assertThat(new Normalized(new EncodedPath(new Precoded("/a/"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("a"), IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("a"), IdempotentEncoded.EMPTY));
         assertThat(new Normalized(new EncodedPath(new Precoded("/a/b"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")));
-        assertThat(new Normalized(new EncodedPath(new Precoded("a"))), Matchers.contains((UriEncoded) new Encoded("a")));
-        assertThat(new Normalized(new EncodedPath(new Precoded("a/"))), Matchers.contains((UriEncoded) new Encoded("a"), IdempotentEncoded.EMPTY));
-        assertThat(new Normalized(new EncodedPath(new Precoded("a/b"))), Matchers.contains((UriEncoded) new Encoded("a"), new Encoded("b")));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")));
+        assertThat(new Normalized(new EncodedPath(new Precoded("a"))), iterates(new Encoded("a")));
+        assertThat(new Normalized(new EncodedPath(new Precoded("a/"))), iterates(new Encoded("a"), IdempotentEncoded.EMPTY));
+        assertThat(new Normalized(new EncodedPath(new Precoded("a/b"))), iterates(new Encoded("a"), new Encoded("b")));
 
         assertThat(new Normalized(new EncodedPath(new Precoded("/../a/b"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")));
-        assertThat(new Normalized(new EncodedPath(new Precoded("/../a/../b"))), Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("b")));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")));
+        assertThat(new Normalized(new EncodedPath(new Precoded("/../a/../b"))), iterates(IdempotentEncoded.EMPTY, new Encoded("b")));
         assertThat(new Normalized(new EncodedPath(new Precoded("../a/b"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, new Encoded("a"), new Encoded("b")));
-        assertThat(new Normalized(new EncodedPath(new Precoded("../a/../b"))), Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, new Encoded("b")));
+            iterates(IdempotentEncoded.PARENT, new Encoded("a"), new Encoded("b")));
+        assertThat(new Normalized(new EncodedPath(new Precoded("../a/../b"))), iterates(IdempotentEncoded.PARENT, new Encoded("b")));
         assertThat(new Normalized(new EncodedPath(new Precoded("/../../a/../b/"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("b"), IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("b"), IdempotentEncoded.EMPTY));
         assertThat(new Normalized(new EncodedPath(new Precoded("../../c"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.PARENT, new Encoded("c")));
+            iterates(IdempotentEncoded.PARENT, IdempotentEncoded.PARENT, new Encoded("c")));
         assertThat(new Normalized(new EncodedPath(new Precoded("/../../c/"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("c"), IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("c"), IdempotentEncoded.EMPTY));
         assertThat(new Normalized(new EncodedPath(new Precoded("./a/b/./././c"))),
-                Matchers.contains((UriEncoded) new Encoded("a"), new Encoded("b"), new Encoded("c")));
+            iterates(new Encoded("a"), new Encoded("b"), new Encoded("c")));
 
-        assertThat(new Normalized(new EncodedPath(new Precoded("a/../b"))), Matchers.contains((UriEncoded) new Encoded("b")));
+        assertThat(new Normalized(new EncodedPath(new Precoded("a/../b"))), iterates(new Encoded("b")));
         assertThat(new Normalized(new EncodedPath(new Precoded("a/b/../.."))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.CURRENT, IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.CURRENT, IdempotentEncoded.EMPTY));
         assertThat(new Normalized(new EncodedPath(new Precoded("a/b/../../"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.CURRENT, IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.CURRENT, IdempotentEncoded.EMPTY));
         assertThat(new Normalized(new EncodedPath(new Precoded("a/b/../../.."))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
         assertThat(new Normalized(new EncodedPath(new Precoded("a/b/../../../"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
-        assertThat(new Normalized(new EncodedPath(new Precoded("a/b/../../../c"))), Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, new Encoded("c")));
+            iterates(IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
+        assertThat(new Normalized(new EncodedPath(new Precoded("a/b/../../../c"))), iterates(IdempotentEncoded.PARENT, new Encoded("c")));
         assertThat(new Normalized(new EncodedPath(new Precoded("../a/../../b"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.PARENT, new Encoded("b")));
-        assertThat(new Normalized(new EncodedPath(new Precoded("./a/./../b"))), Matchers.contains((UriEncoded) new Encoded("b")));
+            iterates(IdempotentEncoded.PARENT, IdempotentEncoded.PARENT, new Encoded("b")));
+        assertThat(new Normalized(new EncodedPath(new Precoded("./a/./../b"))), iterates(new Encoded("b")));
         assertThat(new Normalized(new EncodedPath(new Precoded("../a/../../b/../"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.PARENT, IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
     }
 }

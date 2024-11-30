@@ -21,8 +21,6 @@ import org.dmfs.rfc3986.parameters.ValueType;
 
 /**
  * A {@link ValueType} for integer parameters.
- *
- * @author Marten Gajda
  */
 public final class IntegerValueType implements ValueType<Integer>
 {

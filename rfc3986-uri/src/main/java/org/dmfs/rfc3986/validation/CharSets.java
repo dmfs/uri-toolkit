@@ -17,7 +17,6 @@
 package org.dmfs.rfc3986.validation;
 
 /**
- * @author Marten Gajda
  */
 public final class CharSets
 {

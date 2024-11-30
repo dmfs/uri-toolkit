@@ -22,13 +22,12 @@ import org.dmfs.rfc3986.fragments.SimpleFragment;
 import org.dmfs.rfc3986.paths.EncodedPath;
 import org.dmfs.rfc3986.queries.SimpleQuery;
 import org.dmfs.rfc3986.schemes.StringScheme;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 /**
- * @author marten
  */
 public class TextTest
 {

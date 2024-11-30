@@ -27,8 +27,6 @@ import java.io.UnsupportedEncodingException;
  * An adapter to adapt a {@link ParameterList} to {@code x-www-form-urlencoded} a {@link UriEncoded}.
  * <p>
  * Note, this can't be decoded as a whole. Calling {@link #decoded()} or {@link #decoded(String)} with result in an Exception.
- *
- * @author Marten Gajda
  */
 public final class XWwwFormUrlEncoded implements UriEncoded
 {

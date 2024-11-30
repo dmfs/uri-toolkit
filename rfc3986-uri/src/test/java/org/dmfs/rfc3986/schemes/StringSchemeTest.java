@@ -16,13 +16,16 @@
 
 package org.dmfs.rfc3986.schemes;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.saynotobugs.confidence.Assertion.assertThat;
+import static org.saynotobugs.confidence.core.quality.Grammar.is;
+import static org.saynotobugs.confidence.core.quality.Object.throwing;
 
 
 /**
- * @author marten
+ *
  */
 public class StringSchemeTest
 {
@@ -57,30 +60,30 @@ public class StringSchemeTest
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testLengthIllegalChar() throws Exception
     {
-        new StringScheme("http_").length();
+        assertThat(() -> new StringScheme("http_").length(), is(throwing(IllegalArgumentException.class)));
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCharAtIllegalChar() throws Exception
     {
-        new StringScheme("http_").charAt(0);
+        assertThat(() -> new StringScheme("http_").charAt(0), is(throwing(IllegalArgumentException.class)));
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSubSequenceIllegalChar() throws Exception
     {
-        new StringScheme("http_").subSequence(1, 2);
+        assertThat(() -> new StringScheme("http_").subSequence(1, 2), is(throwing(IllegalArgumentException.class)));
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testToStringIllegalChar() throws Exception
     {
-        new StringScheme("http_").toString();
+        assertThat(() -> new StringScheme("http_").toString(), is(throwing(IllegalArgumentException.class)));
     }
 }

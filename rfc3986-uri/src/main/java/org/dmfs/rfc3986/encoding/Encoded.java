@@ -29,8 +29,6 @@ import java.io.Writer;
 /**
  * A lazily encoded {@link CharSequence}. This encodes <strong>all</strong> reserved characters and delimiters. The only characters not encoded are "a"-"z",
  * "A"-"Z", "0"-"9", "-", "_", "." and "~".
- *
- * @author Marten Gajda
  * @see <a href="https://tools.ietf.org/html/rfc3986#section-2.3">RFC 3986 Section 2.3</a>
  */
 public final class Encoded implements UriEncoded

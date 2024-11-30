@@ -32,8 +32,6 @@ import java.io.Writer;
  * "A"-"Z", "0"-"9", "-", "_", "." and "~".
  * <p>
  * Note, in contrast to {@link Encoded} this encodes spaces as {@code +} instead of {@code %20} and normalizes new line squences to {@code %0D%0A}.
- *
- * @author Marten Gajda
  * @see <a href="https://tools.ietf.org/html/rfc3986#section-2.3">RFC 3986 Section 2.3</a>
  */
 public final class FormEncoded implements UriEncoded

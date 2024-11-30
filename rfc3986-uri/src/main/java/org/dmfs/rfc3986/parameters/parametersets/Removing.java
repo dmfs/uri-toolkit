@@ -16,8 +16,7 @@
 
 package org.dmfs.rfc3986.parameters.parametersets;
 
-import org.dmfs.iterators.AbstractFilteredIterator;
-import org.dmfs.iterators.FilteredIterator;
+import org.dmfs.jems2.iterator.Sieved;
 import org.dmfs.rfc3986.parameters.Parameter;
 import org.dmfs.rfc3986.parameters.ParameterList;
 import org.dmfs.rfc3986.parameters.ParameterType;
@@ -27,8 +26,6 @@ import java.util.Iterator;
 
 /**
  * {@link ParameterList} decorator that removes any parameters of the given {@link ParameterType}s.
- *
- * @author Marten Gajda
  */
 public final class Removing implements ParameterList
 {
@@ -46,12 +43,8 @@ public final class Removing implements ParameterList
     @Override
     public Iterator<Parameter> iterator()
     {
-        return new FilteredIterator<>(mDelegate.iterator(), new AbstractFilteredIterator.IteratorFilter<Parameter>()
-        {
-            @Override
-            public boolean iterate(Parameter element)
-            {
-                // don't iterate keys that we have in mRemovedTypes
+        return new Sieved<>(
+            element -> {
                 for (ParameterType<?> param : mRemovedTypes)
                 {
                     // TODO: get rid of the toString conversion and use something like an `Equalable`
@@ -62,7 +55,8 @@ public final class Removing implements ParameterList
                     }
                 }
                 return true;
-            }
-        });
+            },
+
+            mDelegate.iterator());
     }
 }

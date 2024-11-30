@@ -16,7 +16,7 @@
 
 package org.dmfs.rfc3986.parameters.parametersets;
 
-import org.dmfs.iterators.EmptyIterator;
+import org.dmfs.jems2.iterator.EmptyIterator;
 import org.dmfs.rfc3986.parameters.Parameter;
 import org.dmfs.rfc3986.parameters.ParameterList;
 
@@ -25,8 +25,6 @@ import java.util.Iterator;
 
 /**
  * {@link ParameterList} that doesn't contain any parameters.
- *
- * @author Marten Gajda
  */
 public final class EmptyParameterList implements ParameterList
 {
@@ -36,6 +34,6 @@ public final class EmptyParameterList implements ParameterList
     @Override
     public Iterator<Parameter> iterator()
     {
-        return EmptyIterator.instance();
+        return EmptyIterator.emptyIterator();
     }
 }

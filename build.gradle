@@ -1,26 +1,66 @@
-apply plugin: 'java'
-
-def gitVersion = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe', '--tags'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
+plugins {
+    id 'java-library'
+    id 'org.dmfs.gver' version '0.18.0'
+    id 'io.github.gradle-nexus.publish-plugin' version '1.1.0' apply false
 }
 
-sourceCompatibility = 1.7
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+gver {
+    issueTracker GitHub {
+        repo = "dmfs/uri-toolkit"
+        if (project.hasProperty("GITHUB_API_TOKEN")) {
+            accessToken = GITHUB_API_TOKEN
+        }
+    }
+    changes {
+        are none when {
+            affects only(matches(~/.*\.md/))
+        }
+        are major when {
+            commitMessage contains(~/(?i)#(major|break(ing)?)\b/)
+        }
+        are minor when {
+            commitMessage contains(~/(?i)#(?<issue>\d+)\b/) {
+                where("issue") { isIssue { labeled "enhancement" } }
+            }
+        }
+        are patch when {
+            commitMessage contains(~/(?i)#(?<issue>\d+)\b/) {
+                where("issue") { isIssue { labeled "bug" } }
+            }
+        }
+        are minor when {
+            commitMessage contains("#feature\\b")
+        }
+        otherwise patch
+    }
+    preReleases {
+        on ~/main/ use { "beta" }
+        on ~/(.*\/)?(?<name>.*)/ use { "alpha-${group('name')}.1" }
+    }
+    releaseBranchPattern ~/main$/
+}
 
 allprojects {
     group 'org.dmfs'
-    version gitVersion()
+    repositories {
+        mavenCentral()
+    }
 }
 
-repositories {
-    mavenCentral()
-}
+if (project.hasProperty('SONATYPE_USERNAME') && project.hasProperty('SONATYPE_PASSWORD')) {
+    apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    nexusPublishing {
+        repositories {
+            sonatype {
+                username = SONATYPE_USERNAME
+                password = SONATYPE_PASSWORD
+                nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))
+                snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/snapshots/"))
+            }
+        }
+    }
 }
-

@@ -16,22 +16,20 @@
 
 package org.dmfs.rfc3986.queries;
 
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Present;
 import org.dmfs.rfc3986.Query;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.utils.Parsed;
 
 import java.util.NoSuchElementException;
 
-import static org.dmfs.optional.Absent.absent;
+import static org.dmfs.jems2.optional.Absent.absent;
 import static org.dmfs.rfc3986.validation.CharSets.QUERY_CHAR;
 
 
 /**
  * An {@link Optional}, lazily parsed and validated {@link Query}.
- *
- * @author Marten Gajda
  */
 public final class OptionalLazyQuery implements Optional<Query>, Parsed
 {
@@ -45,8 +43,6 @@ public final class OptionalLazyQuery implements Optional<Query>, Parsed
      * character. The {@code "?"} will not be part of the {@link Query}.
      * <p>
      * If the input doesn't start with a {@code "?"}, the optional {@link Query} will not be "present".
-     *
-     * @param uriEncoded
      */
     public OptionalLazyQuery(UriEncoded uriEncoded)
     {
@@ -58,13 +54,6 @@ public final class OptionalLazyQuery implements Optional<Query>, Parsed
     public boolean isPresent()
     {
         return query().isPresent();
-    }
-
-
-    @Override
-    public Query value(Query defaultValue)
-    {
-        return query().value(defaultValue);
     }
 
 
@@ -106,7 +95,7 @@ public final class OptionalLazyQuery implements Optional<Query>, Parsed
         {
             // the query can only be terminated by the end of the string or a fragment
             throw new IllegalArgumentException(
-                    String.format("Query %s contains illegal char %c at position %d", encoded.toString(), encoded.charAt(i), i));
+                String.format("Query %s contains illegal char %c at position %d", encoded.toString(), encoded.charAt(i), i));
         }
 
         mEnd = i;

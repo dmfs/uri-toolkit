@@ -21,8 +21,6 @@ import org.dmfs.rfc3986.Scheme;
 
 /**
  * A collection of known URI schemes.
- *
- * @author Marten Gajda
  */
 public final class Schemes
 {

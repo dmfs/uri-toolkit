@@ -18,8 +18,6 @@ package org.dmfs.rfc3986.validation;
 
 /**
  * A {@link CharSet} that's based on the bits set in a bitmap.
- *
- * @author Marten Gajda
  */
 public final class BitMapCharSet implements CharSet
 {

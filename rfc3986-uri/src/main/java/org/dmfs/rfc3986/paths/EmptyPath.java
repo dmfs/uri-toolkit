@@ -16,17 +16,16 @@
 
 package org.dmfs.rfc3986.paths;
 
-import org.dmfs.iterators.EmptyIterator;
 import org.dmfs.rfc3986.Path;
 import org.dmfs.rfc3986.UriEncoded;
 
 import java.util.Iterator;
 
+import static org.dmfs.jems2.iterator.EmptyIterator.emptyIterator;
+
 
 /**
- * An empty {@link Path}. By definition it has no path segments and is not absolute.
- *
- * @author Marten Gajda
+ * An empty {@link Path}. By definition, it has no path segments and is not absolute.
  */
 public final class EmptyPath implements Path
 {
@@ -50,7 +49,7 @@ public final class EmptyPath implements Path
     @Override
     public Iterator<UriEncoded> iterator()
     {
-        return EmptyIterator.instance();
+        return emptyIterator();
     }
 
 

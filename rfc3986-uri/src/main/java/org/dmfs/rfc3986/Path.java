@@ -23,8 +23,6 @@ import org.dmfs.rfc3986.paths.Text;
  * Represents the path component of a {@link Uri}.
  * <p>
  * Use {@link Text} to convert a {@link Path} into an encoded {@link CharSequence}.
- *
- * @author Marten Gajda
  */
 public interface Path extends Iterable<UriEncoded>
 {

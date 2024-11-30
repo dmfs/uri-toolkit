@@ -23,8 +23,6 @@ import org.dmfs.rfc3986.parameters.ValueType;
 
 /**
  * A basic {@link ParameterType} implementation.
- *
- * @author Marten Gajda
  */
 public final class BasicParameterType<T> implements ParameterType<T>
 {
@@ -34,9 +32,6 @@ public final class BasicParameterType<T> implements ParameterType<T>
 
     /**
      * Creates a {@link ParameterType} with the given name and {@link ValueType}.
-     *
-     * @param name
-     * @param valueType
      */
     public BasicParameterType(CharSequence name, ValueType<T> valueType)
     {
@@ -58,7 +53,7 @@ public final class BasicParameterType<T> implements ParameterType<T>
         if (!name().toString().equals(parameter.name().toString()))
         {
             throw new IllegalArgumentException(
-                    String.format("Given parameter has wrong type \"%s\". Expected type \"%s\"", parameter.name().toString(), mName.toString()));
+                String.format("Given parameter has wrong type \"%s\". Expected type \"%s\"", parameter.name().toString(), mName.toString()));
         }
         return mValueType.parsedValue(parameter.textValue());
     }

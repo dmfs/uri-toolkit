@@ -16,11 +16,9 @@
 
 package org.dmfs.rfc3986.parameters.adapters;
 
-import org.dmfs.iterators.AbstractConvertedIterator;
-import org.dmfs.iterators.AbstractFilteredIterator;
-import org.dmfs.iterators.ConvertedIterator;
-import org.dmfs.iterators.FilteredIterator;
-import org.dmfs.optional.Optional;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.iterator.Mapped;
+import org.dmfs.jems2.iterator.Sieved;
 import org.dmfs.rfc3986.parameters.Parameter;
 import org.dmfs.rfc3986.parameters.ParameterList;
 import org.dmfs.rfc3986.parameters.ParameterType;
@@ -31,8 +29,6 @@ import java.util.NoSuchElementException;
 
 /**
  * The value of a {@link Parameter} that can be present once or not at all.
- *
- * @author Marten Gajda
  */
 public final class OptionalParameter<V> implements Optional<V>
 {
@@ -48,27 +44,15 @@ public final class OptionalParameter<V> implements Optional<V>
             @Override
             public Iterator<V> iterator()
             {
-                return new ConvertedIterator<>(
-                        new FilteredIterator<>(
-                                delegate.iterator(),
-                                new AbstractFilteredIterator.IteratorFilter<Parameter>()
-                                {
-                                    @Override
-                                    public boolean iterate(Parameter element)
-                                    {
-                                        // TODO: get rid of the toString conversion and use something like an `Equalable`
-                                        // TODO: maybe move this check to ParameterType
-                                        return element.name().toString().equals(parameterType.name().toString());
-                                    }
-                                }),
-                        new AbstractConvertedIterator.Converter<V, Parameter>()
-                        {
-                            @Override
-                            public V convert(Parameter element)
-                            {
-                                return parameterType.value(element);
-                            }
-                        });
+                return new Mapped<>(
+                    parameterType::value,
+                    new Sieved<>(
+                        element ->
+                            // TODO: get rid of the toString conversion and use something like an `Equalable`
+                            // TODO: maybe move this check to ParameterType
+                            element.name().toString().equals(parameterType.name().toString()),
+                        delegate.iterator()
+                    ));
             }
         };
     }
@@ -82,13 +66,6 @@ public final class OptionalParameter<V> implements Optional<V>
             mIsPresent = mDelegate.iterator().hasNext();
         }
         return mIsPresent;
-    }
-
-
-    @Override
-    public V value(V defaultValue)
-    {
-        return isPresent() ? value() : defaultValue;
     }
 
 

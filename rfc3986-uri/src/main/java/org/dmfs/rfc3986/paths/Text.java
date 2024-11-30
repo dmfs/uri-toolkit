@@ -22,8 +22,6 @@ import org.dmfs.rfc3986.UriEncoded;
 
 /**
  * An adapter that adapts a {@link Path} to a {@link CharSequence}.
- *
- * @author Marten Gajda
  */
 public final class Text implements CharSequence
 {

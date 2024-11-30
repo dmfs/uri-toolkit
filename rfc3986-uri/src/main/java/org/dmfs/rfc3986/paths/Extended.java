@@ -16,16 +16,12 @@
 
 package org.dmfs.rfc3986.paths;
 
-import org.dmfs.iterators.SerialIterator;
+import org.dmfs.jems2.iterator.Concat;
 import org.dmfs.rfc3986.Path;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.IdempotentEncoded;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -94,8 +90,6 @@ import java.util.List;
  * new Resolved(new StringPath("/a/b"), new StringPath("c/d"));  // results in "/a/c/d"
  * new Resolved(new StringPath("/a/b"), new StringPath("/c/d"));  // results in "/c/d"
  * </pre>
- *
- * @author Marten Gajda
  */
 public final class Extended implements Path
 {
@@ -139,7 +133,7 @@ public final class Extended implements Path
     @Override
     public Iterator<UriEncoded> iterator()
     {
-        return Collections.unmodifiableList(normalize(new SerialIterator<>(mDelegate.iterator(), mNewSegments.iterator()))).iterator();
+        return Collections.unmodifiableList(normalize(new Concat<>(mDelegate.iterator(), mNewSegments.iterator()))).iterator();
     }
 
 

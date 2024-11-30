@@ -16,7 +16,7 @@
 
 package org.dmfs.rfc3986.uris;
 
-import org.dmfs.optional.Optional;
+import org.dmfs.jems2.Optional;
 import org.dmfs.rfc3986.Authority;
 import org.dmfs.rfc3986.Fragment;
 import org.dmfs.rfc3986.Query;
@@ -25,8 +25,6 @@ import org.dmfs.rfc3986.Uri;
 
 /**
  * Adapter to adapt a {@link Uri} to a {@link CharSequence}.
- *
- * @author Marten Gajda
  */
 public final class Text implements CharSequence
 {

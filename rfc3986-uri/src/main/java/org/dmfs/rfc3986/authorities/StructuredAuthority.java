@@ -16,17 +16,15 @@
 
 package org.dmfs.rfc3986.authorities;
 
-import org.dmfs.optional.Absent;
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Absent;
+import org.dmfs.jems2.optional.Present;
 import org.dmfs.rfc3986.Authority;
 import org.dmfs.rfc3986.UriEncoded;
 
 
 /**
  * An {@link Authority} built from its components.
- *
- * @author Marten Gajda
  */
 public final class StructuredAuthority implements Authority
 {

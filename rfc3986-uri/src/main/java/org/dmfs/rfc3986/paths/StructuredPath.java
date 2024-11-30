@@ -16,7 +16,7 @@
 
 package org.dmfs.rfc3986.paths;
 
-import org.dmfs.iterators.ArrayIterator;
+import org.dmfs.jems2.iterator.Seq;
 import org.dmfs.rfc3986.Path;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.IdempotentEncoded;
@@ -29,8 +29,6 @@ import java.util.Iterator;
  * <p>
  * Note: If the first segment equals {@link IdempotentEncoded#EMPTY} the result is an absolute Path. A {@link IdempotentEncoded#EMPTY} element at the
  * essentially appends a '/' to the end of the String representation.
- *
- * @author Marten Gajda
  */
 public final class StructuredPath implements Path
 {
@@ -60,6 +58,6 @@ public final class StructuredPath implements Path
     @Override
     public Iterator<UriEncoded> iterator()
     {
-        return new ArrayIterator<>(mPathSegments);
+        return new Seq<>(mPathSegments);
     }
 }

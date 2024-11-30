@@ -28,8 +28,6 @@ import java.nio.charset.UnsupportedCharsetException;
 
 /**
  * A {@link Parameter} derived from a url encoded key-value-pair.
- *
- * @author Marten Gajda
  */
 public final class UrlEncodedParameter implements Parameter
 {

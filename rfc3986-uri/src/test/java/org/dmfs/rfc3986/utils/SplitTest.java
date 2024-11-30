@@ -16,14 +16,15 @@
 
 package org.dmfs.rfc3986.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.saynotobugs.confidence.Assertion.assertThat;
+import static org.saynotobugs.confidence.core.quality.Grammar.is;
+import static org.saynotobugs.confidence.core.quality.Object.throwing;
 
 
 public class SplitTest
@@ -148,7 +149,7 @@ public class SplitTest
     }
 
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testSeparatorString4()
     {
         Iterator<CharSequence> iterator = new Split(";abcde;fghi;jkl;", ';');
@@ -162,7 +163,7 @@ public class SplitTest
         assertEquals("jkl", iterator.next());
         assertTrue(iterator.hasNext());
         assertEquals("", iterator.next());
-        iterator.next();
+        assertThat(iterator::next, is(throwing(NoSuchElementException.class)));
     }
 
 

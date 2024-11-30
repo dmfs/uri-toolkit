@@ -16,22 +16,15 @@
 
 package org.dmfs.rfc3986.uris;
 
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
-import org.dmfs.rfc3986.Authority;
-import org.dmfs.rfc3986.Fragment;
-import org.dmfs.rfc3986.Path;
-import org.dmfs.rfc3986.Query;
-import org.dmfs.rfc3986.Scheme;
-import org.dmfs.rfc3986.Uri;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Present;
+import org.dmfs.rfc3986.*;
 import org.dmfs.rfc3986.fragments.SimpleFragment;
 import org.dmfs.rfc3986.queries.SimpleQuery;
 
 
 /**
  * {@link Uri} decorator that normalizes the path of any given {@link Uri}
- *
- * @author Marten Gajda
  */
 public final class Normalized implements Uri
 {

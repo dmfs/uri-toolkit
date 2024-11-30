@@ -25,8 +25,6 @@ import java.util.Locale;
 
 /**
  * A {@link Scheme} derived from a String.
- *
- * @author Marten Gajda
  */
 public final class StringScheme implements Scheme
 {

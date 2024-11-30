@@ -25,8 +25,6 @@ import java.io.UnsupportedEncodingException;
  * Adapter for special {@link CharSequence}s that remain the same before and after encoding.
  * <p>
  * To be used with care!
- *
- * @author Marten Gajda
  */
 public final class IdempotentEncoded implements UriEncoded
 {
