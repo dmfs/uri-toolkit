@@ -16,7 +16,7 @@
 
 package org.dmfs.rfc3986.paths;
 
-import org.dmfs.iterators.EmptyIterator;
+import org.dmfs.jems2.iterator.EmptyIterator;
 import org.dmfs.rfc3986.Path;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.IdempotentEncoded;
@@ -29,8 +29,6 @@ import java.util.List;
 
 /**
  * A decorator for {@link Path}s that normalizes the decorated {@link Path}.
- *
- * @author Marten Gajda
  */
 public final class Normalized implements Path
 {
@@ -63,7 +61,7 @@ public final class Normalized implements Path
         if (mDelegate.isEmpty())
         {
             // no elements whatsoever
-            return EmptyIterator.instance();
+            return EmptyIterator.emptyIterator();
         }
         return Collections.unmodifiableList(normalize(mDelegate.iterator())).iterator();
     }

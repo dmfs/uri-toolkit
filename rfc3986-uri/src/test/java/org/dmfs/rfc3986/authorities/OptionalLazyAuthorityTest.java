@@ -17,16 +17,12 @@
 package org.dmfs.rfc3986.authorities;
 
 import org.dmfs.rfc3986.encoding.Precoded;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
- * @author Marten Gajda
  */
 public class OptionalLazyAuthorityTest
 {
@@ -85,7 +81,7 @@ public class OptionalLazyAuthorityTest
         assertTrue(new OptionalLazyAuthority(new Precoded("//test@example.com/path")).value().userInfo().isPresent());
         assertEquals("test", new OptionalLazyAuthority(new Precoded("//test@example.com/path")).value().userInfo().value().toString());
         assertEquals("te:st", new OptionalLazyAuthority(new Precoded("//te:st@example.com/path")).value().userInfo().value().toString());
-        assertTrue("example.com", new OptionalLazyAuthority(new Precoded("//test@example.com:123/path")).value().userInfo().isPresent());
+        assertTrue(new OptionalLazyAuthority(new Precoded("//test@example.com:123/path")).value().userInfo().isPresent());
         assertEquals("test", new OptionalLazyAuthority(new Precoded("//test@example.com:123/path")).value().userInfo().value().toString());
         assertEquals("te:st", new OptionalLazyAuthority(new Precoded("//te:st@example.com:123/path")).value().userInfo().value().toString());
 
@@ -110,12 +106,5 @@ public class OptionalLazyAuthorityTest
         assertEquals(123, (int) new OptionalLazyAuthority(new Precoded("//test@example.com:123/path")).value().port().value());
         assertEquals(123, (int) new OptionalLazyAuthority(new Precoded("//test@example.com:123/path")).value().port().value());
         assertEquals(123, (int) new OptionalLazyAuthority(new Precoded("//te:st@example.com:123/path")).value().port().value());
-    }
-
-
-    @Ignore
-    @Test
-    public void testValueWithDefault() throws Exception
-    {
     }
 }

@@ -24,8 +24,6 @@ import org.dmfs.rfc3986.parameters.adapters.XwfueParameterList;
  * <p>
  * Often the query is structured, for instance with {@code x-www-form-urlencoded}. Use an appropriate adapter like {@link XwfueParameterList} to read these
  * structured values.
- *
- * @author Marten Gajda
  */
 public interface Query extends UriEncoded
 {

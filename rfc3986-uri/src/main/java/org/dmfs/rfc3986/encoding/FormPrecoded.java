@@ -27,8 +27,6 @@ import java.io.UnsupportedEncodingException;
  * +} into a space character. This is meant to decode values in {@code x-www-form-urlencoded} data (like most query strings).
  * <p>
  * TODO: validate the provided string.
- *
- * @author Marten Gajda
  */
 public final class FormPrecoded implements UriEncoded
 {

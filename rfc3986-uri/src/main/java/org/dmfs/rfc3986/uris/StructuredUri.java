@@ -16,22 +16,15 @@
 
 package org.dmfs.rfc3986.uris;
 
-import org.dmfs.optional.Absent;
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
-import org.dmfs.rfc3986.Authority;
-import org.dmfs.rfc3986.Fragment;
-import org.dmfs.rfc3986.Path;
-import org.dmfs.rfc3986.Query;
-import org.dmfs.rfc3986.Scheme;
-import org.dmfs.rfc3986.Uri;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Absent;
+import org.dmfs.jems2.optional.Present;
+import org.dmfs.rfc3986.*;
 import org.dmfs.rfc3986.paths.EmptyPath;
 
 
 /**
  * A {@link Uri} that's composed of its individual components.
- *
- * @author Marten Gajda
  */
 public final class StructuredUri implements Uri
 {
@@ -80,7 +73,7 @@ public final class StructuredUri implements Uri
         if (!scheme.isPresent() && !authority.isPresent() && !mPath.isAbsolute() && !path.isEmpty() && path.iterator().next().toString().contains(":"))
         {
             throw new IllegalArgumentException(
-                    "URIs without scheme and authority must have not have a \":\" in the first path segment unless the path is absolute.");
+                "URIs without scheme and authority must have not have a \":\" in the first path segment unless the path is absolute.");
         }
         // TODO: do we have more constraints?
     }

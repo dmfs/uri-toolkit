@@ -16,24 +16,17 @@
 
 package org.dmfs.rfc3986.uris;
 
-import org.dmfs.optional.Absent;
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
-import org.dmfs.rfc3986.Authority;
-import org.dmfs.rfc3986.Fragment;
-import org.dmfs.rfc3986.Path;
-import org.dmfs.rfc3986.Query;
-import org.dmfs.rfc3986.Scheme;
-import org.dmfs.rfc3986.Uri;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Absent;
+import org.dmfs.jems2.optional.Present;
+import org.dmfs.rfc3986.*;
 import org.dmfs.rfc3986.paths.EmptyPath;
 
-import static org.dmfs.optional.Absent.absent;
+import static org.dmfs.jems2.optional.Absent.absent;
 
 
 /**
  * An absolute {@link Uri} without authority.
- *
- * @author Marten Gajda
  */
 public final class OpaqueUri implements Uri
 {

@@ -16,8 +16,9 @@
 
 package org.dmfs.rfc3986.utils;
 
-import org.dmfs.iterators.AbstractBaseIterator;
+import org.dmfs.jems2.iterator.BaseIterator;
 
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -54,7 +55,7 @@ import java.util.NoSuchElementException;
  *
  * @author Marten Gajda
  */
-public final class Split extends AbstractBaseIterator<CharSequence>
+public final class Split extends BaseIterator<CharSequence>
 {
     private final CharSequence mValue;
     private final char mSeparator;
@@ -64,14 +65,11 @@ public final class Split extends AbstractBaseIterator<CharSequence>
     private int mNextSeparatorPos = -1;
     private int mSplitCount;
 
-
     /**
      * Creates an {@link Iterator} that iterates all segments of the given CharSequence which are separated by the given <code>separator</code>.
      *
-     * @param value
-     *         The CharSequence that contains a list of values.
-     * @param separator
-     *         The separator that separates the values.
+     * @param value     The CharSequence that contains a list of values.
+     * @param separator The separator that separates the values.
      */
     public Split(CharSequence value, char separator)
     {
@@ -82,13 +80,10 @@ public final class Split extends AbstractBaseIterator<CharSequence>
     /**
      * Creates an {@link Iterator} that iterates all segments of the given CharSequence which are separated by the given <code>separator</code>.
      *
-     * @param value
-     *         The CharSequence that contains a separated list of values.
-     * @param separator
-     *         The separator to scan for.
-     * @param maxSplits
-     *         The maximum number of splits to perform. The iterator will return at most this number +1 elements (the last iterated element containing the rest
-     *         of the {@link CharSequence}.
+     * @param value     The CharSequence that contains a separated list of values.
+     * @param separator The separator to scan for.
+     * @param maxSplits The maximum number of splits to perform. The iterator will return at most this number +1 elements (the last iterated element containing the rest
+     *                  of the {@link CharSequence}.
      */
     public Split(CharSequence value, char separator, int maxSplits)
     {

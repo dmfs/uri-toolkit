@@ -16,7 +16,7 @@
 
 package org.dmfs.rfc3986.paths;
 
-import org.dmfs.iterators.SerialIterator;
+import org.dmfs.jems2.iterator.Concat;
 import org.dmfs.rfc3986.Path;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.IdempotentEncoded;
@@ -28,8 +28,6 @@ import java.util.LinkedList;
 
 /**
  * A {@link Path} decorator that resolves a {@link Path} within the context of the decorated {@link Path}
- *
- * @author Marten Gajda
  */
 public final class Resolved implements Path
 {
@@ -81,7 +79,7 @@ public final class Resolved implements Path
                 segments.removeLast();
             }
         }
-        return Collections.unmodifiableList(normalize(new SerialIterator<>(segments.iterator(), mReference.iterator()))).iterator();
+        return Collections.unmodifiableList(normalize(new Concat<>(segments.iterator(), mReference.iterator()))).iterator();
     }
 
 

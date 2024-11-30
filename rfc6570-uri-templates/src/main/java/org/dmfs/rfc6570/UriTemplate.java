@@ -22,7 +22,6 @@ import java.util.Map;
 
 
 /**
- * @author marten
  */
 public interface UriTemplate
 {

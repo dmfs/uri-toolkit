@@ -16,7 +16,7 @@
 
 package org.dmfs.rfc3986.uris;
 
-import org.dmfs.optional.Optional;
+import org.dmfs.jems2.Optional;
 import org.dmfs.rfc3986.Fragment;
 import org.dmfs.rfc3986.Scheme;
 import org.dmfs.rfc3986.Uri;
@@ -32,8 +32,6 @@ import org.dmfs.rfc3986.schemes.OptionalLazyScheme;
  * A lazily parsed and validated {@link Uri}.
  * <p>
  * To validate the entire URI you need to call {@link #fragment()}, otherwise the URI is only parsed and validated as far as necessary.
- *
- * @author Marten Gajda
  */
 public final class LazyUri implements Uri
 {
@@ -48,8 +46,7 @@ public final class LazyUri implements Uri
     /**
      * Create a lazy {@link Uri} from the given {@link UriEncoded} {@link CharSequence}.
      *
-     * @param uri
-     *         The properly {@link UriEncoded} uri.
+     * @param uri The properly {@link UriEncoded} uri.
      */
     public LazyUri(UriEncoded uri)
     {
@@ -93,7 +90,7 @@ public final class LazyUri implements Uri
         if (mQuery == null)
         {
             mQuery = new OptionalLazyQuery(
-                    mUriEncoded.subSequence(mOptionalScheme.parsedLength() + authority().parsedLength() + path().parsedLength(), mUriEncoded.length()));
+                mUriEncoded.subSequence(mOptionalScheme.parsedLength() + authority().parsedLength() + path().parsedLength(), mUriEncoded.length()));
         }
         return mQuery;
     }
@@ -105,8 +102,8 @@ public final class LazyUri implements Uri
         if (mFragment == null)
         {
             mFragment = new OptionalLazyFragment(
-                    mUriEncoded.subSequence(mOptionalScheme.parsedLength() + authority().parsedLength() + path().parsedLength() + query().parsedLength(),
-                            mUriEncoded.length()));
+                mUriEncoded.subSequence(mOptionalScheme.parsedLength() + authority().parsedLength() + path().parsedLength() + query().parsedLength(),
+                    mUriEncoded.length()));
         }
         return mFragment;
     }

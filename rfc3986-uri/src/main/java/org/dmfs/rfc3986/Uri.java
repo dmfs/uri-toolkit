@@ -16,8 +16,8 @@
 
 package org.dmfs.rfc3986;
 
-import org.dmfs.optional.Optional;
 
+import org.dmfs.jems2.Optional;
 
 /**
  * A URI as specified in <a href="https://tools.ietf.org/html/rfc3986">RFC 3986</a>.
@@ -29,8 +29,6 @@ import org.dmfs.optional.Optional;
  * <p>
  * {@link #isAbsolute()} may be used to distinguish between real URIs that have a scheme ({@link #isAbsolute()} returns {@code true}) and relative references
  * ({@link #isAbsolute()} returns {@code false}).
- *
- * @author Marten Gajda
  */
 public interface Uri
 {

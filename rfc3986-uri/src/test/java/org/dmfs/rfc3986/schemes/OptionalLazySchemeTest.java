@@ -17,17 +17,18 @@
 package org.dmfs.rfc3986.schemes;
 
 import org.dmfs.rfc3986.encoding.Precoded;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.saynotobugs.confidence.Assertion.assertThat;
+import static org.saynotobugs.confidence.core.quality.Grammar.is;
+import static org.saynotobugs.confidence.core.quality.Object.throwing;
 
 
 /**
- * @author Marten Gajda
+ *
  */
 public class OptionalLazySchemeTest
 {
@@ -56,37 +57,24 @@ public class OptionalLazySchemeTest
     }
 
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void valueFail1() throws Exception
     {
-        new OptionalLazyScheme(new Precoded("//example.com:123")).value();
-    }
-
-
-    @Test(expected = NoSuchElementException.class)
-    public void valueFail2() throws Exception
-    {
-        new OptionalLazyScheme(new Precoded("")).value();
-    }
-
-
-    @Test(expected = NoSuchElementException.class)
-    public void valueFail3() throws Exception
-    {
-        new OptionalLazyScheme(new Precoded("test@example.com:123")).value();
+        assertThat(new OptionalLazyScheme(new Precoded("//example.com:123"))::value, is(throwing(NoSuchElementException.class)));
     }
 
 
     @Test
-    public void valueWithDefault() throws Exception
+    public void valueFail2() throws Exception
     {
-        assertEquals("http", new OptionalLazyScheme(new Precoded("http://example.com")).value(new StringScheme("default")).toString());
-        assertEquals("http", new OptionalLazyScheme(new Precoded("http://example.com:123")).value(new StringScheme("default")).toString());
-        assertEquals("mailto", new OptionalLazyScheme(new Precoded("mailto:test@exampe.com")).value(new StringScheme("default")).toString());
-        assertEquals("example.com", new OptionalLazyScheme(new Precoded("example.com:123")).value(new StringScheme("default")).toString());
-        assertEquals("default", new OptionalLazyScheme(new Precoded("//example.com:123")).value(new StringScheme("default")).toString());
-        assertEquals("default", new OptionalLazyScheme(new Precoded("")).value(new StringScheme("default")).toString());
-        assertEquals("default", new OptionalLazyScheme(new Precoded("test@example.com:123")).value(new StringScheme("default")).toString());
+        assertThat(new OptionalLazyScheme(new Precoded(""))::value, is(throwing(NoSuchElementException.class)));
+    }
+
+
+    @Test
+    public void valueFail3() throws Exception
+    {
+        assertThat(new OptionalLazyScheme(new Precoded("test@example.com:123"))::value, is(throwing(NoSuchElementException.class)));
     }
 
 }

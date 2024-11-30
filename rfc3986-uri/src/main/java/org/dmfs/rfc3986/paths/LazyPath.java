@@ -27,8 +27,6 @@ import static org.dmfs.rfc3986.validation.CharSets.PCHAR;
 
 /**
  * A lazy {@link Path}. It's not parsed nor validated until it's actually needed.
- *
- * @author Marten Gajda
  */
 public final class LazyPath implements Path, Parsed
 {

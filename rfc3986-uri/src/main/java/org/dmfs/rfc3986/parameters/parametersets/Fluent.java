@@ -26,8 +26,6 @@ import java.util.Iterator;
 
 /**
  * A fluent decorator to edit {@link ParameterList} in a convenient manner.
- *
- * @author Marten Gajda
  */
 public final class Fluent implements FluentParameterList
 {

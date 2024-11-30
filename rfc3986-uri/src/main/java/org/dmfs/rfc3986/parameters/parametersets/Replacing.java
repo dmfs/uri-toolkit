@@ -16,10 +16,9 @@
 
 package org.dmfs.rfc3986.parameters.parametersets;
 
-import org.dmfs.iterators.AbstractFilteredIterator;
-import org.dmfs.iterators.ArrayIterator;
-import org.dmfs.iterators.FilteredIterator;
-import org.dmfs.iterators.SerialIterator;
+import org.dmfs.jems2.iterator.Concat;
+import org.dmfs.jems2.iterator.Seq;
+import org.dmfs.jems2.iterator.Sieved;
 import org.dmfs.rfc3986.parameters.Parameter;
 import org.dmfs.rfc3986.parameters.ParameterList;
 
@@ -28,8 +27,6 @@ import java.util.Iterator;
 
 /**
  * {@link ParameterList} that replaces values of the decorated {@link ParameterList} with the given values.
- *
- * @author Marten Gajda
  */
 public final class Replacing implements ParameterList
 {
@@ -47,24 +44,22 @@ public final class Replacing implements ParameterList
     @Override
     public Iterator<Parameter> iterator()
     {
-        return new SerialIterator<>(
-                new FilteredIterator<>(mDelegate.iterator(), new AbstractFilteredIterator.IteratorFilter<Parameter>()
-                {
-                    @Override
-                    public boolean iterate(Parameter element)
+        return new Concat<>(
+
+            new Sieved<>(
+                element -> {
+                    // don't iterate keys that we have in mNewParameters
+                    for (Parameter parameter : mNewParameters)
                     {
-                        // don't iterate keys that we have in mNewParameters
-                        for (Parameter parameter : mNewParameters)
+                        // TODO: get rid of the toString conversion and use something like an `Equalable`
+                        // TODO: maybe move this check to ParameterType
+                        if (parameter.name().toString().equals(element.name().toString()))
                         {
-                            // TODO: get rid of the toString conversion and use something like an `Equalable`
-                            // TODO: maybe move this check to ParameterType
-                            if (parameter.name().toString().equals(element.name().toString()))
-                            {
-                                return false;
-                            }
+                            return false;
                         }
-                        return true;
                     }
-                }), new ArrayIterator<>(mNewParameters));
+                    return true;
+                },
+                mDelegate.iterator()), new Seq<>(mNewParameters));
     }
 }

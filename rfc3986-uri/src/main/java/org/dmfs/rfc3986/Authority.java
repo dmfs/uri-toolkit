@@ -16,15 +16,13 @@
 
 package org.dmfs.rfc3986;
 
-import org.dmfs.optional.Optional;
 
+import org.dmfs.jems2.Optional;
 
 /**
  * An authority.
  * <p>
  * An authority has a host, optional user info and an optional port.
- *
- * @author Marten Gajda
  */
 public interface Authority
 {

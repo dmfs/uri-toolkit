@@ -16,21 +16,20 @@
 
 package org.dmfs.rfc3986.paths;
 
-import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.Encoded;
 import org.dmfs.rfc3986.encoding.IdempotentEncoded;
 import org.dmfs.rfc3986.encoding.Precoded;
-import org.hamcrest.Matchers;
-import org.hamcrest.collection.IsEmptyIterable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.saynotobugs.confidence.Assertion.assertThat;
+import static org.saynotobugs.confidence.core.quality.Iterable.emptyIterable;
+import static org.saynotobugs.confidence.core.quality.Iterable.iterates;
 
 
 /**
- * @author Marten Gajda
+ *
  */
 public class ExtendedTest
 {
@@ -67,44 +66,44 @@ public class ExtendedTest
     @Test
     public void iterator() throws Exception
     {
-        assertThat(new Extended(EmptyPath.INSTANCE, EmptyPath.INSTANCE), new IsEmptyIterable<UriEncoded>());
+        assertThat(new Extended(EmptyPath.INSTANCE, EmptyPath.INSTANCE), emptyIterable());
         assertThat(new Extended(EmptyPath.INSTANCE, new EncodedPath(new Precoded("/"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.EMPTY, IdempotentEncoded.EMPTY));
         assertThat(new Extended(new EncodedPath(new Precoded("/")), EmptyPath.INSTANCE),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.EMPTY, IdempotentEncoded.EMPTY));
 
         assertThat(new Extended(new EncodedPath(new Precoded("/")), new EncodedPath(new Precoded("c"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("c")));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("/")), new EncodedPath(new Precoded("./c"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("c")));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("/")), new EncodedPath(new Precoded("../c"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("c")));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("a")), new EncodedPath(new Precoded("c"))),
-                Matchers.contains((UriEncoded) new Encoded("a"), new Encoded("c")));
+            iterates(new Encoded("a"), new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("a")), new EncodedPath(new Precoded("./c"))),
-                Matchers.contains((UriEncoded) new Encoded("a"), new Encoded("c")));
-        assertThat(new Extended(new EncodedPath(new Precoded("a")), new EncodedPath(new Precoded("../c"))), Matchers.contains((UriEncoded) new Encoded("c")));
+            iterates(new Encoded("a"), new Encoded("c")));
+        assertThat(new Extended(new EncodedPath(new Precoded("a")), new EncodedPath(new Precoded("../c"))), iterates(new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("/a")), new EncodedPath(new Precoded("c"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("c")));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("/a")), new EncodedPath(new Precoded("./c"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("c")));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("/a")), new EncodedPath(new Precoded("../c"))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("c")));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("a/b")), new EncodedPath(new Precoded("c"))),
-                Matchers.contains((UriEncoded) new Encoded("a"), new Encoded("b"), new Encoded("c")));
+            iterates(new Encoded("a"), new Encoded("b"), new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("a/b")), new EncodedPath(new Precoded("./c"))),
-                Matchers.contains((UriEncoded) new Encoded("a"), new Encoded("b"), new Encoded("c")));
+            iterates(new Encoded("a"), new Encoded("b"), new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("a/b")), new EncodedPath(new Precoded("../c"))),
-                Matchers.contains((UriEncoded) new Encoded("a"), new Encoded("c")));
+            iterates(new Encoded("a"), new Encoded("c")));
         assertThat(new Extended(new EncodedPath(new Precoded("a/b")), new EncodedPath(new Precoded("../../."))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.CURRENT, IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.CURRENT, IdempotentEncoded.EMPTY));
         assertThat(new Extended(new EncodedPath(new Precoded("a/b")), new EncodedPath(new Precoded("../../.."))),
-                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
+            iterates(IdempotentEncoded.PARENT, IdempotentEncoded.EMPTY));
 
         assertThat(new Extended(new StructuredPath(new Encoded("a"), new Encoded("b")), IdempotentEncoded.CURRENT, new Encoded("c")),
-                Matchers.contains((UriEncoded) new Encoded("a"), new Encoded("b"), new Encoded("c")));
+            iterates(new Encoded("a"), new Encoded("b"), new Encoded("c")));
         assertThat(new Extended(new StructuredPath(new Encoded("a"), new Encoded("b")), IdempotentEncoded.PARENT, new Encoded("c")),
-                Matchers.contains((UriEncoded) new Encoded("a"), new Encoded("c")));
+            iterates(new Encoded("a"), new Encoded("c")));
     }
 
 }

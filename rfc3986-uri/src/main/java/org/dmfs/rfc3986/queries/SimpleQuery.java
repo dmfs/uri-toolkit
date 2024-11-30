@@ -26,8 +26,6 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * A {@link Query} derived from an encoded query string.
- *
- * @author Marten Gajda
  */
 public final class SimpleQuery implements Query
 {

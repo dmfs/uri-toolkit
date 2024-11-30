@@ -18,8 +18,6 @@ package org.dmfs.rfc3986.validation;
 
 /**
  * The interface of a very simple set of characters.
- *
- * @author Marten Gajda
  */
 public interface CharSet
 {

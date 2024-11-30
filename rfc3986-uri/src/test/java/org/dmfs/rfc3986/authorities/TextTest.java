@@ -17,10 +17,9 @@
 package org.dmfs.rfc3986.authorities;
 
 import org.dmfs.rfc3986.encoding.Precoded;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 /**
@@ -41,51 +40,11 @@ public class TextTest
         assertEquals(9, new Text(new StructuredAuthority(new Precoded("user"), new Precoded(""), 123)).length());
     }
 
-
-    @Ignore
-    @Test
-    public void testCharAt() throws Exception
-    {
-    }
-
-
-    @Ignore
-    @Test
-    public void testSubSequence() throws Exception
-    {
-
-    }
-
-
-    @Ignore
-    @Test
-    public void testToString() throws Exception
-    {
-
-    }
-
-
     @Test
     public void testNormalized() throws Exception
     {
         assertEquals("user@host:123", new Text(new StructuredAuthority(new Precoded("user"), new Precoded("host"), 123)).normalized().toString());
         assertEquals("user%40host@host:123",
-                new Text(new StructuredAuthority(new Precoded("%75%73%65%72%40%68%6F%73%74"), new Precoded("%68%6F%73%74"), 123)).normalized().toString());
-    }
-
-
-    @Ignore
-    @Test
-    public void testDecoded() throws Exception
-    {
-
-    }
-
-
-    @Ignore
-    @Test
-    public void testDecodedWithCharset() throws Exception
-    {
-
+            new Text(new StructuredAuthority(new Precoded("%75%73%65%72%40%68%6F%73%74"), new Precoded("%68%6F%73%74"), 123)).normalized().toString());
     }
 }

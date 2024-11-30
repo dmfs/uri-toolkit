@@ -18,8 +18,6 @@ package org.dmfs.rfc3986.parameters;
 
 /**
  * Represents a set of {@link Parameter}s.
- *
- * @author Marten Gajda
  */
 public interface ParameterList extends Iterable<Parameter>
 {

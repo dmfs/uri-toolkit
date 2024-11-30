@@ -25,8 +25,6 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * A normalized {@link UriEncoded} {@link CharSequence}.
- *
- * @author Marten Gajda
  */
 public final class Normalized implements UriEncoded
 {

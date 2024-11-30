@@ -18,17 +18,13 @@ package org.dmfs.rfc3986.parameters;
 
 /**
  * A fluent interface to edit {@link ParameterList}s.
- *
- * @author Marten Gajda
  */
 public interface FluentParameterList extends ParameterList
 {
     /**
      * Appends the given parameters, even if parameters with the same names already exist.
      *
-     * @param parameters
-     *         The parameters to append.
-     *
+     * @param parameters The parameters to append.
      * @return An updated {@link FluentParameterList} instance.
      */
     FluentParameterList alsoWith(Parameter... parameters);
@@ -36,9 +32,7 @@ public interface FluentParameterList extends ParameterList
     /**
      * Appends the given parameters, removing any other parameters that have the same names as the new ones.
      *
-     * @param parameters
-     *         The new parameters.
-     *
+     * @param parameters The new parameters.
      * @return An updated {@link FluentParameterList} instance.
      */
     FluentParameterList ratherWith(Parameter... parameters);
@@ -46,9 +40,7 @@ public interface FluentParameterList extends ParameterList
     /**
      * Removes any parameters of the given {@link ParameterType}s.
      *
-     * @param types
-     *         The parameter parametertypes to remove.
-     *
+     * @param types The parameter parametertypes to remove.
      * @return An updated {@link FluentParameterList} instance.
      */
     FluentParameterList without(ParameterType<?>... types);

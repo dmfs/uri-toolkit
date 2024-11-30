@@ -16,10 +16,8 @@
 
 package org.dmfs.rfc3986.parameters.adapters;
 
-import org.dmfs.iterators.AbstractConvertedIterator;
-import org.dmfs.iterators.AbstractFilteredIterator;
-import org.dmfs.iterators.ConvertedIterator;
-import org.dmfs.iterators.FilteredIterator;
+import org.dmfs.jems2.iterator.Mapped;
+import org.dmfs.jems2.iterator.Sieved;
 import org.dmfs.rfc3986.parameters.Parameter;
 import org.dmfs.rfc3986.parameters.ParameterList;
 import org.dmfs.rfc3986.parameters.ParameterType;
@@ -29,8 +27,6 @@ import java.util.Iterator;
 
 /**
  * The values of a {@link Parameter} that may be present any number of times.
- *
- * @author Marten Gajda
  */
 public final class MultiParameter<V> implements Iterable<V>
 {
@@ -48,26 +44,12 @@ public final class MultiParameter<V> implements Iterable<V>
     @Override
     public Iterator<V> iterator()
     {
-        return new ConvertedIterator<>(
-                new FilteredIterator<>(
-                        mDelegate.iterator(),
-                        new AbstractFilteredIterator.IteratorFilter<Parameter>()
-                        {
-                            @Override
-                            public boolean iterate(Parameter element)
-                            {
-                                // TODO: get rid of the toString conversion and use something like an `Equalable`
-                                // TODO: maybe move this check to ParameterType
-                                return element.name().toString().equals(mParameterType.name().toString());
-                            }
-                        }),
-                new AbstractConvertedIterator.Converter<V, Parameter>()
-                {
-                    @Override
-                    public V convert(Parameter element)
-                    {
-                        return mParameterType.value(element);
-                    }
-                });
+        return new Mapped<>(
+            mParameterType::value,
+            new Sieved<>(
+                // TODO: get rid of the toString conversion and use something like an `Equalable`
+                // TODO: maybe move this check to ParameterType
+                element -> element.name().toString().equals(mParameterType.name().toString()),
+                mDelegate.iterator()));
     }
 }

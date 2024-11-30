@@ -16,19 +16,12 @@
 
 package org.dmfs.rfc3986.uris;
 
-import org.dmfs.optional.Optional;
-import org.dmfs.rfc3986.Authority;
-import org.dmfs.rfc3986.Fragment;
-import org.dmfs.rfc3986.Path;
-import org.dmfs.rfc3986.Query;
-import org.dmfs.rfc3986.Scheme;
-import org.dmfs.rfc3986.Uri;
+import org.dmfs.jems2.Optional;
+import org.dmfs.rfc3986.*;
 
 
 /**
  * A {@link Uri} decorator that resolves a reference {@link Uri} against the decorated base {@link Uri}.
- *
- * @author Marten Gajda
  */
 public final class Resolved implements Uri
 {
@@ -61,8 +54,8 @@ public final class Resolved implements Uri
     public Path path()
     {
         return mReference.isAbsolute() || mReference.authority().isPresent() ?
-                new org.dmfs.rfc3986.paths.Normalized(mReference.path()) :
-                new org.dmfs.rfc3986.paths.Resolved(mBase.path(), mReference.path());
+            new org.dmfs.rfc3986.paths.Normalized(mReference.path()) :
+            new org.dmfs.rfc3986.paths.Resolved(mBase.path(), mReference.path());
     }
 
 
@@ -70,9 +63,9 @@ public final class Resolved implements Uri
     public Optional<? extends Query> query()
     {
         return mReference.isAbsolute() ||
-                mReference.authority().isPresent() ||
-                !mReference.path().isEmpty() ||
-                mReference.query().isPresent() ? mReference.query() : mBase.query();
+            mReference.authority().isPresent() ||
+            !mReference.path().isEmpty() ||
+            mReference.query().isPresent() ? mReference.query() : mBase.query();
     }
 
 

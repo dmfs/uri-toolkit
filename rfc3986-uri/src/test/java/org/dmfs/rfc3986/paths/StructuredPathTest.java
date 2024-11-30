@@ -1,19 +1,17 @@
 package org.dmfs.rfc3986.paths;
 
-import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.Encoded;
 import org.dmfs.rfc3986.encoding.IdempotentEncoded;
-import org.hamcrest.Matchers;
-import org.hamcrest.collection.IsEmptyIterable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.saynotobugs.confidence.Assertion.assertThat;
+import static org.saynotobugs.confidence.core.quality.Iterable.emptyIterable;
+import static org.saynotobugs.confidence.core.quality.Iterable.iterates;
 
 
 /**
- * @author marten
  */
 public class StructuredPathTest
 {
@@ -40,17 +38,17 @@ public class StructuredPathTest
     @Test
     public void testIterator() throws Exception
     {
-        assertThat(new StructuredPath(), new IsEmptyIterable());
-        assertThat(new StructuredPath(IdempotentEncoded.EMPTY), Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY));
-        assertThat(new StructuredPath(IdempotentEncoded.CURRENT), Matchers.contains((UriEncoded) IdempotentEncoded.CURRENT));
-        assertThat(new StructuredPath(IdempotentEncoded.PARENT), Matchers.contains((UriEncoded) IdempotentEncoded.PARENT));
+        assertThat(new StructuredPath(), emptyIterable());
+        assertThat(new StructuredPath(IdempotentEncoded.EMPTY), iterates(IdempotentEncoded.EMPTY));
+        assertThat(new StructuredPath(IdempotentEncoded.CURRENT), iterates(IdempotentEncoded.CURRENT));
+        assertThat(new StructuredPath(IdempotentEncoded.PARENT), iterates(IdempotentEncoded.PARENT));
         assertThat(new StructuredPath(IdempotentEncoded.PARENT, IdempotentEncoded.PARENT),
-                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, IdempotentEncoded.PARENT));
+            iterates(IdempotentEncoded.PARENT, IdempotentEncoded.PARENT));
         assertThat(new StructuredPath(IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")),
-                Matchers.contains((UriEncoded) IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")));
+            iterates(IdempotentEncoded.EMPTY, new Encoded("a"), new Encoded("b")));
         assertThat(new StructuredPath(IdempotentEncoded.CURRENT, new Encoded("a"), new Encoded("b")),
-                Matchers.contains((UriEncoded) IdempotentEncoded.CURRENT, new Encoded("a"), new Encoded("b")));
+            iterates(IdempotentEncoded.CURRENT, new Encoded("a"), new Encoded("b")));
         assertThat(new StructuredPath(IdempotentEncoded.PARENT, new Encoded("a"), new Encoded("b")),
-                Matchers.contains((UriEncoded) IdempotentEncoded.PARENT, new Encoded("a"), new Encoded("b")));
+            iterates(IdempotentEncoded.PARENT, new Encoded("a"), new Encoded("b")));
     }
 }

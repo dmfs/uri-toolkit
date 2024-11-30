@@ -16,11 +16,10 @@
 
 package org.dmfs.rfc3986.parameters.adapters;
 
-import org.dmfs.iterators.AbstractConvertedIterator;
-import org.dmfs.iterators.ConvertedIterator;
-import org.dmfs.iterators.EmptyIterator;
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.iterator.EmptyIterator;
+import org.dmfs.jems2.iterator.Mapped;
+import org.dmfs.jems2.optional.Present;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.Precoded;
 import org.dmfs.rfc3986.parameters.Parameter;
@@ -33,20 +32,9 @@ import java.util.Iterator;
 
 /**
  * {@link ParameterList} adapter that interpret the adapted {@link UriEncoded} as an {@code x-www-form-urlencoded} structure.
- *
- * @author Marten Gajda
  */
 public final class XwfueParameterList implements ParameterList
 {
-    private final static AbstractConvertedIterator.Converter<Parameter, CharSequence> CONVERTER = new AbstractConvertedIterator.Converter<Parameter, CharSequence>()
-    {
-        @Override
-        public Parameter convert(CharSequence element)
-        {
-            return new UrlEncodedParameter(new Precoded(element));
-        }
-    };
-
     private final Optional<UriEncoded> mDelegate;
 
 
@@ -67,9 +55,9 @@ public final class XwfueParameterList implements ParameterList
     {
         if (!mDelegate.isPresent() || mDelegate.value().length() == 0)
         {
-            return EmptyIterator.instance();
+            return EmptyIterator.emptyIterator();
         }
 
-        return new ConvertedIterator<>(new Split(mDelegate.value(), '&'), CONVERTER);
+        return new Mapped<>(param -> new UrlEncodedParameter(new Precoded(param)), new Split(mDelegate.value(), '&'));
     }
 }

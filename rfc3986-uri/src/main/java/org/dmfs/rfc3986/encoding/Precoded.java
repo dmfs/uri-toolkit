@@ -24,8 +24,6 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * An {@link UriEncoded} {@link CharSequence} that is derived from an already encoded {@link CharSequence}.
- *
- * @author Marten Gajda
  */
 public final class Precoded implements UriEncoded
 {

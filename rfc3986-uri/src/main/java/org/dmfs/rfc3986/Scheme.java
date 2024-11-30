@@ -18,8 +18,6 @@ package org.dmfs.rfc3986;
 
 /**
  * The interface of a {@link Uri} scheme.
- *
- * @author Marten Gajda
  */
 public interface Scheme extends CharSequence
 {

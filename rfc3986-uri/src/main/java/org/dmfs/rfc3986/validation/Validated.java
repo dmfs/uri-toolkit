@@ -20,8 +20,6 @@ package org.dmfs.rfc3986.validation;
  * A {@link CharSequence} that comes with a guarantee about the characters it contains.
  * <p>
  * The characters are validated lazily on the first access to any of the methods, not up-front.
- *
- * @author Marten Gajda
  */
 public final class Validated implements CharSequence
 {

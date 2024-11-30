@@ -25,8 +25,6 @@ import java.io.UnsupportedEncodingException;
  * Note that two {@link UriEncoded} objects are considered equal if their encoded and normalized values are equal.
  * <p>
  * All implementations of this must also implement {@link #toString()} to return a {@link String} representation of the encoded value.
- *
- * @author Marten Gajda
  */
 public interface UriEncoded extends CharSequence
 {

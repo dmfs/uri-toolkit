@@ -16,21 +16,19 @@
 
 package org.dmfs.rfc3986.authorities;
 
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Present;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.utils.Parsed;
 
 import java.util.NoSuchElementException;
 
-import static org.dmfs.optional.Absent.absent;
+import static org.dmfs.jems2.optional.Absent.absent;
 import static org.dmfs.rfc3986.validation.CharSets.REG_NAME_CHAR;
 
 
 /**
  * An {@link Optional} {@link UriEncoded} user info.
- *
- * @author Marten Gajda
  */
 public final class OptionalLazyUserInfo implements Optional<UriEncoded>, Parsed
 {
@@ -49,13 +47,6 @@ public final class OptionalLazyUserInfo implements Optional<UriEncoded>, Parsed
     public boolean isPresent()
     {
         return userInfo().isPresent();
-    }
-
-
-    @Override
-    public UriEncoded value(UriEncoded defaultValue)
-    {
-        return userInfo().value(defaultValue);
     }
 
 

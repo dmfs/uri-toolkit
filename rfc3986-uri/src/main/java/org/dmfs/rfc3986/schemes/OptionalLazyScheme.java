@@ -16,15 +16,15 @@
 
 package org.dmfs.rfc3986.schemes;
 
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Present;
 import org.dmfs.rfc3986.Scheme;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.utils.Parsed;
 
 import java.util.NoSuchElementException;
 
-import static org.dmfs.optional.Absent.absent;
+import static org.dmfs.jems2.optional.Absent.absent;
 import static org.dmfs.rfc3986.validation.CharSets.ALPHA;
 import static org.dmfs.rfc3986.validation.CharSets.SCHEME_CHAR;
 
@@ -34,8 +34,6 @@ import static org.dmfs.rfc3986.validation.CharSets.SCHEME_CHAR;
  * <p>
  * Note that the presence of a {@link Scheme} in the result doesn't guarantee a valid URI. It only guarantees, if the input data represents a valid URI, this is
  * the Scheme of it.
- *
- * @author Marten Gajda
  */
 public final class OptionalLazyScheme implements Optional<Scheme>, Parsed
 {
@@ -55,14 +53,6 @@ public final class OptionalLazyScheme implements Optional<Scheme>, Parsed
     {
         return scheme().isPresent();
     }
-
-
-    @Override
-    public Scheme value(Scheme defaultValue)
-    {
-        return scheme().value(defaultValue);
-    }
-
 
     @Override
     public Scheme value() throws NoSuchElementException

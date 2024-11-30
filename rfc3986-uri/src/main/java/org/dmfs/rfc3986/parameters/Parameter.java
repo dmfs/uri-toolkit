@@ -18,8 +18,6 @@ package org.dmfs.rfc3986.parameters;
 
 /**
  * A parameter. Parameters have a name and a text representation of the parameter value.
- *
- * @author Marten Gajda
  */
 public interface Parameter
 {

@@ -16,21 +16,19 @@
 
 package org.dmfs.rfc3986.fragments;
 
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Present;
 import org.dmfs.rfc3986.Fragment;
 import org.dmfs.rfc3986.UriEncoded;
 
 import java.util.NoSuchElementException;
 
-import static org.dmfs.optional.Absent.absent;
+import static org.dmfs.jems2.optional.Absent.absent;
 import static org.dmfs.rfc3986.validation.CharSets.FRAGMENT_CHAR;
 
 
 /**
  * An {@link Optional} {@link Fragment} parsed lazily.
- *
- * @author Marten Gajda
  */
 public final class OptionalLazyFragment implements Optional<Fragment>
 {
@@ -48,13 +46,6 @@ public final class OptionalLazyFragment implements Optional<Fragment>
     public boolean isPresent()
     {
         return fragment().isPresent();
-    }
-
-
-    @Override
-    public Fragment value(Fragment defaultValue)
-    {
-        return fragment().value(defaultValue);
     }
 
 
@@ -95,7 +86,7 @@ public final class OptionalLazyFragment implements Optional<Fragment>
         {
             // illegal character in fragment
             throw new IllegalArgumentException(
-                    String.format("Query %s contains illegal char %c at position %d", uriEncoded.toString(), uriEncoded.charAt(i), i));
+                String.format("Query %s contains illegal char %c at position %d", uriEncoded.toString(), uriEncoded.charAt(i), i));
         }
 
         return new Present<Fragment>(new SimpleFragment(uriEncoded.subSequence(1, count)));

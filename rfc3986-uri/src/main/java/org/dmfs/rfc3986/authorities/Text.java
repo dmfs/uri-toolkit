@@ -16,7 +16,7 @@
 
 package org.dmfs.rfc3986.authorities;
 
-import org.dmfs.optional.Optional;
+import org.dmfs.jems2.Optional;
 import org.dmfs.rfc3986.Authority;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.encoding.Precoded;
@@ -26,8 +26,6 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * The (normalized) {@link UriEncoded} representation of an {@link Authority}.
- *
- * @author Marten Gajda
  */
 public final class Text implements UriEncoded
 {

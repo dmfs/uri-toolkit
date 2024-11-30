@@ -24,8 +24,6 @@ import java.io.OutputStream;
 
 /**
  * An {@link OutputStream} that percent-encodes characters transparently. Calling {@link #toString()} returns the result.
- *
- * @author Marten Gajda
  */
 public final class PercentEncodingOutputStream extends OutputStream
 {

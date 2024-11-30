@@ -25,8 +25,6 @@ import java.util.Iterator;
 
 /**
  * Basic {@link ParameterList} containing  all {@link Parameter}s passed in an array or {@link Iterable}.
- *
- * @author Marten Gajda
  */
 public final class BasicParameterList implements ParameterList
 {
@@ -42,8 +40,7 @@ public final class BasicParameterList implements ParameterList
     /**
      * Creates a {@link ParameterList} from the given {@link Iterable} or {@link Parameter}s. The given {@link Iterable} must be immutable.
      *
-     * @param parameters
-     *         An immutable {@link Iterable} of {@link Parameter}s.
+     * @param parameters An immutable {@link Iterable} of {@link Parameter}s.
      */
     public BasicParameterList(Iterable<Parameter> parameters)
     {

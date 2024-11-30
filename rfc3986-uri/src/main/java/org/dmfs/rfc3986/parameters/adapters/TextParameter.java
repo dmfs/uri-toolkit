@@ -25,8 +25,6 @@ import java.util.NoSuchElementException;
 /**
  * A mandatory text parameter. If the given {@link ParameterList} doesn't contain any parameter of this type all methods will throw {@link
  * NoSuchElementException}.
- *
- * @author Marten Gajda
  */
 public final class TextParameter implements CharSequence
 {

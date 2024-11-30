@@ -16,8 +16,8 @@
 
 package org.dmfs.rfc3986.parameters.parametersets;
 
-import org.dmfs.iterators.ArrayIterator;
-import org.dmfs.iterators.SerialIterator;
+import org.dmfs.jems2.iterator.Concat;
+import org.dmfs.jems2.iterator.Seq;
 import org.dmfs.rfc3986.parameters.Parameter;
 import org.dmfs.rfc3986.parameters.ParameterList;
 
@@ -26,8 +26,6 @@ import java.util.Iterator;
 
 /**
  * A {@link ParameterList} which appends the given parameters to the decorated ones.
- *
- * @author Marten Gajda
  */
 public final class Appending implements ParameterList
 {
@@ -45,6 +43,6 @@ public final class Appending implements ParameterList
     @Override
     public Iterator<Parameter> iterator()
     {
-        return new SerialIterator<>(mDelegate.iterator(), new ArrayIterator<>(mNewParameters));
+        return new Concat<>(mDelegate.iterator(), new Seq<>(mNewParameters));
     }
 }

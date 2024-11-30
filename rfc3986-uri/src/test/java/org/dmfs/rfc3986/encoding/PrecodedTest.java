@@ -16,57 +16,21 @@
 
 package org.dmfs.rfc3986.encoding;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 /**
- * @author marten
  */
 public class PrecodedTest
 {
-
-    @Test
-    public void decoded() throws Exception
-    {
-
-    }
-
-
-    @Test
-    public void length() throws Exception
-    {
-
-    }
-
-
-    @Test
-    public void charAt() throws Exception
-    {
-
-    }
-
 
     @Test
     public void subSequence() throws Exception
     {
         assertEquals(new Precoded("123"), new Precoded("abc123xyz").subSequence(3, 6));
         assertEquals("123", new Precoded("abc123xyz").subSequence(3, 6).toString());
-    }
-
-
-    @Test
-    public void testHashCode() throws Exception
-    {
-
-    }
-
-
-    @Test
-    public void equals() throws Exception
-    {
-
     }
 
 

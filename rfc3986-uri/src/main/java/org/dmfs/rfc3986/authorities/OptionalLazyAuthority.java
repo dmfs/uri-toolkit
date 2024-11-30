@@ -16,21 +16,19 @@
 
 package org.dmfs.rfc3986.authorities;
 
-import org.dmfs.optional.Optional;
-import org.dmfs.optional.Present;
+import org.dmfs.jems2.Optional;
+import org.dmfs.jems2.optional.Present;
 import org.dmfs.rfc3986.Authority;
 import org.dmfs.rfc3986.UriEncoded;
 import org.dmfs.rfc3986.utils.Parsed;
 
 import java.util.NoSuchElementException;
 
-import static org.dmfs.optional.Absent.absent;
+import static org.dmfs.jems2.optional.Absent.absent;
 
 
 /**
  * The {@link Optional} {@link Authority} of a {@link UriEncoded} {@link CharSequence}.
- *
- * @author Marten Gajda
  */
 public final class OptionalLazyAuthority implements Optional<Authority>, Parsed
 {
@@ -48,13 +46,6 @@ public final class OptionalLazyAuthority implements Optional<Authority>, Parsed
     public boolean isPresent()
     {
         return authority().isPresent();
-    }
-
-
-    @Override
-    public Authority value(Authority defaultValue)
-    {
-        return authority().value(defaultValue);
     }
 
 
