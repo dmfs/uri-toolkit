@@ -16,8 +16,11 @@
 
 package org.dmfs.rfc3986.uris;
 
+import org.dmfs.lexmachina.Ast;
+import org.dmfs.lexmachina.tokenstream.StringTokenStream;
 import org.dmfs.rfc3986.Uri;
 import org.dmfs.rfc3986.encoding.Precoded;
+import org.dmfs.rfc3986.lexmachina.grammar.UriGrammar;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -26,6 +29,7 @@ import java.util.List;
 
 
 /**
+ *
  */
 public final class Bench
 {
@@ -35,10 +39,13 @@ public final class Bench
         String uriStr = "http://www.example.com/my/path/to/file.txt?q=search&filter=none#field1=set&field2=clear";
         run(new JavaUriBench(), uriStr);
         run(new OurUriBench(), uriStr);
+        run(new LexMachinaUriBench(), uriStr);
         run(new JavaUriBench(), uriStr);
         run(new OurUriBench(), uriStr);
+        run(new LexMachinaUriBench(), uriStr);
         run(new JavaUriBench(), uriStr);
         run(new OurUriBench(), uriStr);
+        run(new LexMachinaUriBench(), uriStr);
     }
 
 
@@ -62,9 +69,9 @@ public final class Bench
         free -= rt.freeMemory();
 
         System.out.println(
-                String.format("Class %50s, count: %10d, dtotal %10d, dmax %10d, dfree %10d, dtime %5d, bytesperuri %5d", b.getClass().getCanonicalName(), count,
-                        -total, -max,
-                        -free, -start, free / count));
+            String.format("Class %50s, count: %10d, dtotal %10d, dmax %10d, dfree %10d, dtime %5d, bytesperuri %5d", b.getClass().getCanonicalName(), count,
+                -total, -max,
+                -free, -start, free / count));
         System.gc();
         Thread.sleep(1000);
     }
@@ -104,6 +111,21 @@ public final class Bench
             }
         }
     }
+
+    private final static class LexMachinaUriBench implements Benchmark
+    {
+
+        @Override
+        public void bench(List<Object> results, int count, String uriStr)
+        {
+            for (int i = 0; i < count; ++i)
+            {
+                Ast uri = new UriGrammar().parse(new StringTokenStream(uriStr));
+                results.add(uri);
+            }
+        }
+    }
+
 
 }
 

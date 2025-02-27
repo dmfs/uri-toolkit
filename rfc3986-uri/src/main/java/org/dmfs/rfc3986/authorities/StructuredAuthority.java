@@ -66,7 +66,7 @@ public final class StructuredAuthority implements Authority
 
 
     @Override
-    public Optional<? extends UriEncoded> userInfo()
+    public Optional<UriEncoded> userInfo()
     {
         return mUserInfo;
     }

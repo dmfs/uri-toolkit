@@ -31,7 +31,7 @@ public interface Authority
      *
      * @return The {@link UriEncoded} user info.
      */
-    Optional<? extends UriEncoded> userInfo();
+    Optional<UriEncoded> userInfo();
 
     /**
      * Returns the host of this authority.

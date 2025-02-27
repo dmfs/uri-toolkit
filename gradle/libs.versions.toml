@@ -1,7 +1,7 @@
 [versions]
 hamcrest = "2.2"
 confidence = "0.57.0"
-jems2 = "2.25.0"
+jems2 = "2.25.1-alpha-upgrade-confidence.1.20250227T103354Z-SNAPSHOT"
 junit = "5.11.0"
 junit-testkit = "1.11.0"
 

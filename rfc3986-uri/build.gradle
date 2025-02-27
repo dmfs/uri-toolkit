@@ -5,15 +5,18 @@ plugins {
 apply from: '../jacoco.gradle'
 apply from: '../publish.gradle'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
     api libs.jems2
     testImplementation libs.jems2.testing
+    testImplementation libs.jems2.confidence
     testImplementation libs.junit.jupiter.api
     testImplementation libs.confidence.core
     testRuntimeOnly libs.junit.jupiter.engine
+
+    implementation 'org.dmfs:lexmachina:0.0.1-beta.35.20250226T213628Z-SNAPSHOT'
 }
 
 test {
