@@ -16,10 +16,13 @@
 
 package org.dmfs.rfc3986.validation;
 
+
+import org.dmfs.lexmachina.CharPredicate;
+
 /**
  * A {@link CharSet} that's based on the bits set in a bitmap.
  */
-public final class BitMapCharSet implements CharSet
+public final class BitMapCharSet implements CharSet, CharPredicate
 {
     private final int[] mBitmap;
     private final int mLength;
@@ -34,6 +37,12 @@ public final class BitMapCharSet implements CharSet
 
     @Override
     public boolean contains(char c)
+    {
+        return (c < mLength) && (mBitmap[c >>> 5] & (1 << (c & 0x1F))) != 0;
+    }
+
+    @Override
+    public boolean isSatisfiedBy(char c)
     {
         return (c < mLength) && (mBitmap[c >>> 5] & (1 << (c & 0x1F))) != 0;
     }

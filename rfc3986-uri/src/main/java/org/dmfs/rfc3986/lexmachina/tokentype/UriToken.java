@@ -2,20 +2,20 @@ package org.dmfs.rfc3986.lexmachina.tokentype;
 
 import org.dmfs.lexmachina.TokenType;
 import org.dmfs.lexmachina.tokentype.*;
+import org.dmfs.rfc3986.validation.CharSets;
 
 import static org.dmfs.lexmachina.tokentype.MathTokenType.DIGIT;
-import static org.dmfs.lexmachina.tokentype.MathTokenType.INTEGER;
 import static org.dmfs.lexmachina.tokentype.TextTokenType.ASCII_CHAR;
 import static org.dmfs.rfc3986.validation.CharSets.*;
 
 public enum UriToken implements TokenType
 {
-    SCHEME(new SequenceOf(new CharSetToken(ALPHA), new Optional(new OneOrMoreOf(new CharSetToken(SCHEME_CHAR))))), // FIXME
+    SCHEME(new SequenceOf(new AtLeastOneOf(ALPHA), new AnyNumberOf(SCHEME_CHAR))),
     SCHEME_SEPARATOR(new CharTokenType(':')),
     PORT_SEPARATOR(new CharTokenType(':')),
     USERINFO_SEPARATOR(new CharTokenType('@')),
     DOT(new CharTokenType('.')),
-    PORT(new Optional(INTEGER)),
+    PORT(new AnyNumberOf(CharSets.DIGIT)),
     AUTHORITY_PREFIX(new StringTokenType("//")),
     HEX_DIGIT(new OneOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'e', 'E', 'f', 'F')),
     DEC_OCTET(new OneOf(
@@ -28,12 +28,12 @@ public enum UriToken implements TokenType
     IP6(new SequenceOf(new CharTokenType('x'))), // FIXME
     IP_FUTURE(new SequenceOf(new CharTokenType('v'), new OneOrMoreOf(HEX_DIGIT), DOT, new OneOrMoreOf(ASCII_CHAR))), //FIXME
     IP_LITERAL(new SequenceOf(new CharTokenType('['), new OneOf(IP6, IP_FUTURE), new CharTokenType(']'))),
-    USERINFO(new Optional(new OneOrMoreOf(new CharSetToken(REG_NAME_CHAR)))), //FIXME
-    REG_NAME(new Optional(new OneOrMoreOf(new CharSetToken(REG_NAME_CHAR)))), //FIXME
-    HOST(new OneOf(IP_FUTURE, IP4, REG_NAME)),
-    PATH(new Optional(new OneOrMoreOf(new CharSetToken(PCHAR)))), //FIXME
-    QUERY(new Optional(new OneOrMoreOf(new CharSetToken(QUERY_CHAR)))), //FIXME
-    FRAGMENT(new Optional(new OneOrMoreOf(new CharSetToken(FRAGMENT_CHAR)))), //FIXME
+    USERINFO(new AnyNumberOf(REG_NAME_CHAR)), // TODO: check
+    REG_NAME(new AnyNumberOf(REG_NAME_CHAR)), // TODO: check
+    HOST(new OneOf(REG_NAME, IP4, IP_LITERAL)),
+    PATH(new AnyNumberOf(PCHAR)),
+    QUERY(new AnyNumberOf(QUERY_CHAR)),
+    FRAGMENT(new AnyNumberOf(FRAGMENT_CHAR)),
     ROOT_PATH(new CharTokenType('/')),
     PATH_SEPARATOR(new CharTokenType('/')),
     QUERY_SEPARATOR(new CharTokenType('?')),

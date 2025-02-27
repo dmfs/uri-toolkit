@@ -16,17 +16,18 @@
 
 package org.dmfs.rfc3986.validation;
 
+
+import org.dmfs.lexmachina.CharPredicate;
+
 /**
  * The interface of a very simple set of characters.
  */
-public interface CharSet
+public interface CharSet extends CharPredicate
 {
     /**
      * Returns whether this CharSet contains the given character.
      *
-     * @param c
-     *         The character to test.
-     *
+     * @param c The character to test.
      * @return {@code true} if the given character is contained in the set, {@code false} otherwise.
      */
     boolean contains(char c);
