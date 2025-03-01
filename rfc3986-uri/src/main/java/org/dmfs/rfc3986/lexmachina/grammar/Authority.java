@@ -1,6 +1,5 @@
 package org.dmfs.rfc3986.lexmachina.grammar;
 
-import org.dmfs.jems2.iterable.Seq;
 import org.dmfs.lexmachina.GrammarComposition;
 import org.dmfs.lexmachina.grammar.BinaryInfixTerm;
 import org.dmfs.lexmachina.grammar.LiteralTerm;
@@ -12,7 +11,7 @@ public final class Authority extends GrammarComposition
     public Authority()
     {
         super(new BinaryInfixTerm(
-            new Seq<>(PORT_SEPARATOR),
+            PORT_SEPARATOR,
             new SeparatedPrefixTerm(
                 USERINFO,
                 USERINFO_SEPARATOR,

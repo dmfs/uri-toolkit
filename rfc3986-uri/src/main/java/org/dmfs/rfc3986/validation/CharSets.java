@@ -17,6 +17,7 @@
 package org.dmfs.rfc3986.validation;
 
 /**
+ *
  */
 public final class CharSets
 {
@@ -29,6 +30,12 @@ public final class CharSets
      * {@link BitMapCharSet} for digits.
      */
     public final static CharSet DIGIT = new BitMapCharSet(0, 0x03FF0000, 0, 0);
+
+
+    /**
+     * {@link BitMapCharSet} for digits.
+     */
+    public final static CharSet HEXDIGIT = new BitMapCharSet(0, 0x03FF0000, 0x0000007E, 0x0000007E);
 
     /**
      * {@link BitMapCharSet} for unreserved characters as per <a href="https://tools.ietf.org/html/rfc3986#appendix-A">RFC 3986, Appendix A</a>.
@@ -98,6 +105,8 @@ public final class CharSets
 
     // segments may contain any PCHAR
     public final static CharSet SEGMENT_CHAR = PCHAR;
+
+    public final static CharSet PATHCHAR = new BitMapCharSet(0, 0x2FFFFFF2, 0x87FFFFFF, 0x47FFFFFE);
 
     /**
      * {@link BitMapCharSet} for query characters  as per <a href="https://tools.ietf.org/html/rfc3986#appendix-A">RFC 3986, Appendix A</a>.

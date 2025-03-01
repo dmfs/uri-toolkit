@@ -37,6 +37,10 @@ public final class Bench
     public void bench() throws InterruptedException
     {
         String uriStr = "http://www.example.com/my/path/to/file.txt?q=search&filter=none#field1=set&field2=clear";
+//        String uriStr = "http://www.example.com?q=search&filter=none#field1=set&field2=clear";
+//        String uriStr = "http://sdfadfafadvakdjfakljhkflahfkljahkljfhalkjfdhlkjahflkjaffa@www.example.com/my/path/to/file.txt?q=search&filter=none#field1=set&field2=clear";
+//        String uriStr = "http://www.example.com";
+//        String uriStr = "/my/path/to/file.txtj/kjbsfas/adskjfbajebfuqbrfu/lkjasbdfklja/lkjhfkjasdhfkjlan";
         run(new JavaUriBench(), uriStr);
         run(new OurUriBench(), uriStr);
         run(new LexMachinaUriBench(), uriStr);

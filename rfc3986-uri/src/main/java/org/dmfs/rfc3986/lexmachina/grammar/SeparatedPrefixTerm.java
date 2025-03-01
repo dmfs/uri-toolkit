@@ -8,8 +8,6 @@ import org.dmfs.lexmachina.TokenType;
 import org.dmfs.lexmachina.ast.BinaryNode;
 import org.dmfs.lexmachina.ast.LiteralNode;
 
-import java.util.List;
-
 public final class SeparatedPrefixTerm implements Grammar
 {
     private final TokenType mPrefix;
@@ -26,11 +24,10 @@ public final class SeparatedPrefixTerm implements Grammar
     @Override
     public Ast parse(TokenStream tokenStream)
     {
-        Optional<List<String>> tokens = tokenStream.consume(mPrefix, mSeparator);
+        Optional<String[]> tokens = tokenStream.consumeAllOf(mPrefix, mSeparator);
         if (tokens.isPresent())
         {
-            List<String> tokenList = tokens.value();
-            return new BinaryNode(mSeparator, new LiteralNode(mPrefix, tokenList.get(0)), mDelegate.parse(tokenStream));
+            return new BinaryNode(mSeparator, new LiteralNode(mPrefix, tokens.value()[0]), mDelegate.parse(tokenStream));
         }
         return mDelegate.parse(tokenStream);
     }

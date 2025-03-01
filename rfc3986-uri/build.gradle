@@ -16,7 +16,7 @@ dependencies {
     testImplementation libs.confidence.core
     testRuntimeOnly libs.junit.jupiter.engine
 
-    implementation 'org.dmfs:lexmachina:0.0.1-beta.36.20250227T140823Z-SNAPSHOT'
+    implementation 'org.dmfs:lexmachina:0.0.1-beta.40.20250228T205747Z-SNAPSHOT'
 }
 
 test {

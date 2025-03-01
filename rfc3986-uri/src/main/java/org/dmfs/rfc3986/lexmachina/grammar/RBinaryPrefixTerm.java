@@ -13,13 +13,13 @@ import org.dmfs.lexmachina.ast.BinaryNode;
  */
 public final class RBinaryPrefixTerm implements Grammar
 {
-    private final Iterable<TokenType> mTokenTypes;
+    private final TokenType mTokenType;
     private final Grammar mLeftDelegate;
     private final Grammar mRightDelegate;
 
-    public RBinaryPrefixTerm(Iterable<TokenType> tokenTypes, Grammar leftDelegate, Grammar rightDelegate)
+    public RBinaryPrefixTerm(TokenType tokenType, Grammar leftDelegate, Grammar rightDelegate)
     {
-        mTokenTypes = tokenTypes;
+        mTokenType = tokenType;
         mLeftDelegate = leftDelegate;
         mRightDelegate = rightDelegate;
     }
@@ -27,13 +27,10 @@ public final class RBinaryPrefixTerm implements Grammar
     @Override
     public Ast parse(TokenStream tokenStream)
     {
-        for (TokenType tokenType : mTokenTypes)
+        Optional<?> token = tokenStream.consumeOne(mTokenType);
+        if (token.isPresent())
         {
-            Optional<?> token = tokenStream.consume(tokenType);
-            if (token.isPresent())
-            {
-                return new BinaryNode(tokenType, mLeftDelegate.parse(tokenStream), mRightDelegate.parse(tokenStream));
-            }
+            return new BinaryNode(mTokenType, mLeftDelegate.parse(tokenStream), mRightDelegate.parse(tokenStream));
         }
         return mRightDelegate.parse(tokenStream);
     }

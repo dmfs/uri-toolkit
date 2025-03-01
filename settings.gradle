@@ -1,4 +1,5 @@
 rootProject.name = 'uri-toolkit'
 include 'rfc3986-uri'
 include 'rfc6570-uri-templates'
+include 'benchmark'
 

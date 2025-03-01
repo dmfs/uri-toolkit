@@ -1,7 +1,9 @@
 package org.dmfs.rfc3986.lexmachina.tokentype;
 
 import org.dmfs.lexmachina.TokenType;
+import org.dmfs.lexmachina.tokentype.CharSequence;
 import org.dmfs.lexmachina.tokentype.*;
+import org.dmfs.rfc3986.lexmachina.grammar.FirstAndAnyNumberOf;
 import org.dmfs.rfc3986.validation.CharSets;
 
 import static org.dmfs.lexmachina.tokentype.MathTokenType.DIGIT;
@@ -10,14 +12,15 @@ import static org.dmfs.rfc3986.validation.CharSets.*;
 
 public enum UriToken implements TokenType
 {
-    SCHEME(new SequenceOf(new AtLeastOneOf(ALPHA), new AnyNumberOf(SCHEME_CHAR))),
+    SCHEME(new FirstAndAnyNumberOf(ALPHA, SCHEME_CHAR)),
     SCHEME_SEPARATOR(new CharTokenType(':')),
     PORT_SEPARATOR(new CharTokenType(':')),
     USERINFO_SEPARATOR(new CharTokenType('@')),
     DOT(new CharTokenType('.')),
     PORT(new AnyNumberOf(CharSets.DIGIT)),
-    AUTHORITY_PREFIX(new StringTokenType("//")),
-    HEX_DIGIT(new OneOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'e', 'E', 'f', 'F')),
+    AUTHORITY_PREFIX(new CharSequence(c -> c == '/', c -> c == '/')),
+    HEX_DIGIT(new CharPredicateType(HEXDIGIT)),
+    PCT_ENCODED(new CharSequence(c -> c == '%', HEXDIGIT, HEXDIGIT)),
     DEC_OCTET(new OneOf(
         new SequenceOf(new StringTokenType("25"), new OneOf('0', '1', '2', '3', '4', '5')),
         new SequenceOf(new CharTokenType('2'), new OneOf('0', '1', '2', '3', '4'), DIGIT),
@@ -32,6 +35,7 @@ public enum UriToken implements TokenType
     REG_NAME(new AnyNumberOf(REG_NAME_CHAR)), // TODO: check
     HOST(new OneOf(REG_NAME, IP4, IP_LITERAL)),
     PATH(new AnyNumberOf(PCHAR)),
+    FULL_PATH(new AnyNumberOf(PATHCHAR)),
     QUERY(new AnyNumberOf(QUERY_CHAR)),
     FRAGMENT(new AnyNumberOf(FRAGMENT_CHAR)),
     ROOT_PATH(new CharTokenType('/')),

@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id "me.champeau.jmh" version "0.7.3"
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+dependencies {
+    jmh libs.jems2
+    jmh 'org.dmfs:lexmachina:0.0.1-beta.40.20250228T205747Z-SNAPSHOT'
+    jmh project(":rfc3986-uri")
+}
+
+jmh {
+    resultFormat = 'JSON'
+    resultsFile = project.file("${project.buildDir}/reports/jmh/results-${version}.json")
+}

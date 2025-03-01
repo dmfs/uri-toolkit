@@ -23,7 +23,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("userinfo@host:123")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("host")),
                     has("port", org.dmfs.rfc3986.Authority::port, present(123))
                 )))));
@@ -35,7 +35,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("host:123")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, absent()),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, absent()),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("host")),
                     has("port", org.dmfs.rfc3986.Authority::port, present(123))
                 )))));
@@ -47,7 +47,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("userinfo@host")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("host")),
                     has("port", org.dmfs.rfc3986.Authority::port, absent())
                 )))));
@@ -59,7 +59,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("host")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, absent()),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, absent()),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("host")),
                     has("port", org.dmfs.rfc3986.Authority::port, absent())
                 )))));
@@ -72,7 +72,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("@host:123")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has((org.dmfs.rfc3986.Authority authority) -> authority.userInfo(), present(hasToString(""))),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, present(hasToString(""))),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("host")),
                     has("port", org.dmfs.rfc3986.Authority::port, present(123))
                 )))));
@@ -85,7 +85,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("@host")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, present(hasToString(""))),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, present(hasToString(""))),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("host")),
                     has("port", org.dmfs.rfc3986.Authority::port, absent())
                 )))));
@@ -98,7 +98,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("userinfo@:123")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("")),
                     has("port", org.dmfs.rfc3986.Authority::port, present(123))
                 )))));
@@ -110,7 +110,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream(":123")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, absent()),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, absent()),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("")),
                     has("port", org.dmfs.rfc3986.Authority::port, present(123))
                 )))));
@@ -122,7 +122,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("userinfo@")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("")),
                     has("port", org.dmfs.rfc3986.Authority::port, absent())
                 )))));
@@ -134,7 +134,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, absent()),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, absent()),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("")),
                     has("port", org.dmfs.rfc3986.Authority::port, absent())
                 )))));
@@ -147,7 +147,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("userinfo@host:")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("host")),
                     has("port", org.dmfs.rfc3986.Authority::port, absent())
                 )))));
@@ -159,7 +159,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("host:")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, absent()),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, absent()),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("host")),
                     has("port", org.dmfs.rfc3986.Authority::port, absent())
                 )))));
@@ -172,7 +172,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream("userinfo@:")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, present(hasToString("userinfo"))),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("")),
                     has("port", org.dmfs.rfc3986.Authority::port, absent())
                 )))));
@@ -184,7 +184,7 @@ class AuthorityTest
         assertThat(new Authority().parse(new StringTokenStream(":")).expression(new UriModel()),
             maps(new EmptyContext(),
                 to(instanceOf(org.dmfs.rfc3986.Authority.class, allOf(
-                    has("fragment", org.dmfs.rfc3986.Authority::userInfo, absent()),
+                    has("userinfo", org.dmfs.rfc3986.Authority::userInfo, absent()),
                     has("host", org.dmfs.rfc3986.Authority::host, hasToString("")),
                     has("port", org.dmfs.rfc3986.Authority::port, absent())
                 )))));
